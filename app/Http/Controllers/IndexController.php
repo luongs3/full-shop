@@ -13,7 +13,6 @@ use App\Model\File;
 use App\Model\Product;
 use App\Model\Category;
 use App\Model\FeaturedProduct;
-use App\Helpers\Category as Helper;
 use Auth;
 use Session;
 use Response;
@@ -27,14 +26,14 @@ class IndexController extends Controller {
     public function index(){
 //        load image slider
         $file = new File();
-        $response = $file->getSliderImages();
+        $attributes = array(
+            'type' => 'slider'
+        );
+        $response = $file->getAll($attributes);
         $data = json_decode($response->getContent(), true);
         if (isset($data['errors']))
             return Redirect::route('')->with('error', $data['errors']['message']);
         $files = $data['files'];
-        foreach ($files as $key => $val) {
-            $files[$key]['url'] = '/images/home/' . $val['name'];
-        }
 //        load featured products
         $filter=array(
             'limit' => 6
@@ -46,7 +45,8 @@ class IndexController extends Controller {
             return Redirect::route('404')->with('error', $data['errors']['message']);
         $featured_products = $data['featuredProducts'];
 //        load categories
-        $response = Helper::getList();
+        $model = new Category();
+        $response = $model->getList();
         $data = json_decode($response->getContent(), true);
         if (isset($data['errors']))
             return Redirect::route('categories.manage')->with('error', $data['errors']['message']);
@@ -54,10 +54,6 @@ class IndexController extends Controller {
 //        page title
         return view("index")->with('files',$files)->with('featured_products',$featured_products)->with('categories',$categories);
     }
-//  manage site
-//    public function manage(){
-//
-//    }
     public function getErrorPage(){
         return view('errors.404');
     }
@@ -87,48 +83,55 @@ class IndexController extends Controller {
         ];
         return view("category.create");
     }
-    public function save($id=null){
-        $input = Input::all();
-//        check sku
-        if(array_get($input,'_token'))
-            unset($input['_token']);
-        $input['name'] = trim(preg_replace('/[^(\x20-\x7F)]*/','', $input['name']));
-        $input['description'] = trim($input['description']);
-        if($id){
-            $response = $this->model->updateCategory($input);
-            $response = json_decode($response->getContent());
-            if (isset($response->errors)){
-                return Redirect::route('categories.edit',['id' => $id])->with('error', $response->errors->message);
-            } else {
-                return Redirect::route('categories.edit',['id' => $id])->with('success',"Chỉnh sửa Loại SP thành công");
-            }
-        }
-        else{
-            $response = $this->model->store($input);
-            $response = json_decode($response->getContent());
-            if (isset($response->errors)) {
-                return Redirect::route('categories.create')->with('error',$response->errors->message)->withInput();
-            } else {
-                return Redirect::route('categories.create')->with('success',"Tạo Loại sản phẩm thành công");
-            }
-        }
 
-//        $response = 1 <-> success, $response = 0 <-> failed
-    }
-//    admin page - manage category
+//    manage
     public function manage(){
         $filter = array(
-            'page' => 0,
-            'limit' => 10
+            'type' => 'slider'
         );
-//        $data = json_decode($this->model->getcategorys(null,$filter));
-        $data = $this->model->index($filter);
-        $scripts = [
-            "/js/jquery.dataTables.min.js",
-            "/js/dataTables.bootstrap.min.js",
-            "https://cdn.datatables.net/plug-ins/1.10.10/pagination/four_button.js"
-        ];
-        return view("category.category-manage")->with('categories',$data)->with('scripts',$scripts);
+        $file_model = new File();
+        $response = $file_model->getAll($filter);
+        $data = json_decode($response->getContent(),true);
+        if(isset($data['errors']))
+            return view('manage-index')->with('error', $data['errors']['message']);
+        $images = $data['files'];
+        return view("manage-index")->with('images',$images);
+    }
+//    save
+    public function save(){
+        $input = Input::all();
+//        banner
+        for($i=0;$i<3;$i++){
+            if(Input::hasFile($i)) {
+                if(Input::file($i)->getSize() < 500000 && Input::file($i)->isValid()){
+                    $fileInstance = new File();
+                    if (!empty(Input::get("hidden_" . $i))) {
+//                        delete old banner
+                        $response = $fileInstance->remove(Input::get("hidden_" . $i));
+                        $data = json_decode($response->getContent(), true);
+                        if (isset($data['errors']))
+                            return Redirect::route('index.manage')->with('error', $data['errors']['message']);
+                    }
+                    $destination_path = public_path('images/home');
+                    $name = Input::file($i)->getClientOriginalName();
+                    $file = Input::file($i)->move($destination_path, $name);
+                    $check_error = Input::file($i)->getError();
+                    if($check_error != "UPLOADERROK")
+                        return Redirect::route('index.manage')->with('error', trans('message.upload_file_failed'));
+                    $saved_file = array(
+                        'name' => $file->getFilename(),
+                        'type' => 'SLIDER',
+                    );
+                    $response = $fileInstance->store($saved_file);
+                    $data = json_decode($response->getContent(),true);
+                    if (isset($data['errors'])) {
+                        return Redirect::route('index.manage')->with('error', $data['errors']['message']);
+                    }else
+                        return Redirect::route('index.manage')->with('success', trans('message.upload_file_successfully'));
+                }
+            }
+        }
+        return Redirect::route('index.manage');
     }
 
     public function delete($id)
@@ -145,18 +148,18 @@ class IndexController extends Controller {
 
     public function test()
     {
-        $user = Auth::user();
-        $attr = $user->getAttributes();
+        $file = new File();
+        $response = $file->remove(14);;
+        $data = json_decode($response->getContent(), true);
         echo "<pre>";
-        print_r($attr);
-        echo "\n";
-        $name = Auth::getName();
-        print_r($name);
-        echo "\n";
-        $user = Auth::getRequest();
-        print_r($user);
+        print_r($data);
         echo "\n";
         die();
+
+        if (isset($data['errors']))
+            return Redirect::route('products.manage')->with('error', $data['errors']['message']);
+        $product = $data['product'];
+
 
     }
 }

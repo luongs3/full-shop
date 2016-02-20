@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Validator;
+use Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -22,7 +23,7 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-
+    protected $redirectPath = '/';
     /**
      * Create a new authentication controller instance.
      *
@@ -39,11 +40,14 @@ class AuthController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
+    protected function validator(array $data){
         return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'name' => 'max:60',
+            'address' => '',
+            'role' => 'in:admin,user',
+            'status' => 'in:0,1',
+            'phone_number' => '',
+            'email' => 'required|email|max:100|unique:users',
             'password' => 'required|confirmed|min:6',
         ]);
     }
@@ -54,12 +58,33 @@ class AuthController extends Controller
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data)
-    {
+    protected function create(array $data){
         return User::create([
-            'name' => $data['name'],
+            'name' => array_get($data,'name'),
             'email' => $data['email'],
+            'address' => array_get($data,'address'),
+            'phone_number' => array_get($data,'phone_number'),
+            'role' => $data['role'],
+            'status' => $data['status'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+    public function postRegister()
+    {
+        $input = Input::all();
+        if (array_get($input,'secret_key')=="10201994") {
+            $input['role'] = 'admin';
+            $input['status'] = 1;
+            $validator = $this->validator($input);
+
+            if ($validator->fails()) {
+                $this->throwValidationException(
+                    $input, $validator
+                );
+            }
+            $this->login($this->create($input));
+            return redirect($this->redirectPath());
+        }
+        else return redirect()->route('auth.register')->with('error',trans('message.secret_key_not_valid'));
     }
 }

@@ -56,3 +56,14 @@ div.dropdown{
     height: 40px!important;
     margin-top: 5px;
 }
+.btn_header{
+    position: relative;
+    top: -70px;
+    right: 250px;
+}
+.sale_price{
+    text-decoration: line-through;
+}
+h3.page-header{
+    border-bottom: solid 4px #3836eb;
+}

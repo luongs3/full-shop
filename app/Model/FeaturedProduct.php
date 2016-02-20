@@ -4,39 +4,48 @@ use Illuminate\Database\Eloquent\Model;
 use App\Model\Product;
 use Response;
 
-class FeaturedProduct extends Model
+class FeaturedProduct extends BaseModel
 {
 	protected $table = "featured_product";
-	protected $fillable = ['id','product_id','updated_at'];
+	protected $fillable = ['id','product_id'];
 
+
+	public function __construct(){
+		$this->setModelClass('App\Model\FeaturedProduct');
+		$this->setSingularKey('featuredProduct');
+		$this->setPluralKey('featuredProducts');
+		parent::__construct();
+	}
 
 	public function getAll($filter=array()){
 		try {
-			$product_model = new Product();
-			$products = FeaturedProduct::orderBy("updated_at", "DESC")->take($filter['limit'])->get();
+			$model_class = $this->getModelClass();
+			$product_model_class = new Product();
+			$products = $model_class::orderBy("updated_at", "DESC")->take($filter['limit'])->get();
 			if (!$products)
 				return Response::json(['errors' => ['message' => trans('message.product_not_exist')]]);
 			foreach ($products as $key => $val) {
 				$temp_val = $val->getAttributes();
-				$response = $product_model->show($temp_val['product_id']);
+				$response = $product_model_class->show($temp_val['product_id']);
 				$data = json_decode($response->getContent(),true);
+
 				$product = $data['product'];
 				$products[$key]['name'] = $product['name'];
 				$products[$key]['price'] = $product['price'];
 				$products[$key]['image_url'] = array_get($product,'image_url');
 				$products[$key]['sku'] = $product['sku'];
 			}
-			return Response::json(['featuredProducts' => $products]);
+			return Response::json([$this->getPluralKey() => $products]);
 		} catch (Exception $e) {
 			return Response::json(['errors' => ['message' => $e->getMessage()]]);
 		}
 	}
 
-	public function index($filter=array())
-	{
+	public function index($filter=array()){
+		$model_class = $this->getModelClass();
 		$product_model = new Product();
 		try {
-			$products = FeaturedProduct::orderBy("updated_at", "DESC")->paginate($filter['limit']);
+			$products = $model_class::orderBy("updated_at", "DESC")->paginate($filter['limit']);
 			if (!$products)
 				return Response::json(['errors' => ['message' => trans('message.product_not_exist')]]);
 			foreach ($products as $key => $val) {
@@ -52,24 +61,12 @@ class FeaturedProduct extends Model
 			return Response::json(['errors' => ['message' => $e->getMessage()]]);
 		}
 	}
-	public function store($product){
-		$model = new FeaturedProduct($product);
-		try {
-			$model->save();
-			return Response::json(['featuredProduct' => $model]);
-		} catch (Exception $e) {
-			return [
-				Response::json(['errors' => [
-					'code' => $e->getCode(), 'message' => $e->getMessage()
-				]
-				])];
-		}
-	}
 
-	public function updateFeaturedProduct($product){
+	public function updateItem($product){
 		try{
 //			find based on product id
-			$model = FeaturedProduct::where('product_id',$product['product_id'])->first();
+			$model_class = $this->getModelClass();
+			$model = $model_class::where('product_id',$product['product_id'])->first();
 			if(!$model)
 				return Response::json([
 					'errors' => ['message' => trans('message.product_not_exist')]
@@ -77,39 +74,19 @@ class FeaturedProduct extends Model
 			$product['updated_at'] = time();
 			$model->fill($product);
 			$model->save();
-			return Response::json(['featuredProduct' => $model]);
+			return Response::json([$this->getSingularKey() => $model]);
 		}catch (Exception $e){
 			return Response::json(['errors' => ['code' => $e->getCode(), 'message' => $e->getMessage()]]);
 		}
 	}
-
-	public function deleteFeaturedProduct($id){
-		try {
-			$product = FeaturedProduct::find($id);
-			if (!$product) {
-				return [
-					'errors' => [
-						'code' => 'not_exist', 'message' => Lang::get('message.product_not_exist')
-					]
-				];
-			}
-			$product->delete();
-			return Response::json(['featuredProduct' => $product ]);
-		}catch (Exception $e){
-			return Response::json([
-				'errors' => [
-					['code' => $e->getCode(), 'message' => $e->getMessage()]
-				]
-			]);
-		}
-	}
-	public function showProduct($id = null)
+	public function show($id = null)
 	{
+		$model_class = $this->getModelClass();
 		try{
-			$featured_product = FeaturedProduct::where('product_id',$id)->first();
+			$featured_product = $model_class::where('product_id',$id)->first();
 			if(!$featured_product)
 				return Response::json(['errors' => ['message' => trans('message.product_not_exist')]]);
-			return Response::json(['featuredProduct' => $featured_product]);
+			return Response::json([$this->getSingularKey() => $featured_product]);
 		}catch (Exception $e){
 			return Response::json(['errors' => ['message' => $e->getMessage()]]);
 		}

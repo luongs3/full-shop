@@ -8,7 +8,8 @@
 					<div class="col-sm-10 padding-right">
 						@include('layout.result')
 						<meta name="_token" content="{{ csrf_token() }}"/>
-					<button class="btn btn-default btn_submit" id="btn_delete">Xóa</button>
+						<h3 class="page-header">{{trans('label.manage_featured_products')}}</h3>
+						<button class="btn btn-default btn_submit" id="btn_delete">Xóa</button>
 					<a href="{{URL::route('products.manage')}}" class="btn btn-default btn_submit" id="btn_add">{{trans('label.add_new')}}</a>
 					<div id="grid">
 						<table id="myTable" class="table table-bordered table-striped table-responsive">

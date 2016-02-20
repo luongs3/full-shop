@@ -81,7 +81,12 @@
 												<a href="{{URL::route('products.detail',['sku' => $val['sku']])}}">
 													<img src="{{$val['image_url']}}" alt="" />
 												</a>
-												<h2>{{$val['price']}} đ</h2>
+												@if(isset($val['sale_price']))
+													<h2 class="sale_price">{{$val['sale_price']}} đ</h2>
+													<h2>{{$val['price']}} đ</h2>
+												@else
+													<h2>{{$val['price']}} đ</h2>
+												@endif
 												<p>{{$val['name']}}</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>

@@ -13,7 +13,6 @@ use App\Model\Product as Product;
 use App\Model\Category as Category;
 use App\Model\FeaturedProduct as FeaturedProduct;
 use App\Model\File as File;
-use App\Helpers\Category as Helper;
 use Input;
 use Redirect;
 
@@ -96,9 +95,9 @@ class ProductController extends Controller{
 //        file process
         if(Input::hasFile('image')) {
             if(Input::file('image')->getSize() < 500000 && Input::file('image')->isValid()){
-                $destination_path = public_path('images/product');
-                $name = Input::file('image')->getClientOriginalName();
-                $file = Input::file('image')->move($destination_path, $name);
+                    $destination_path = public_path('images/product');
+                    $name = Input::file('image')->getClientOriginalName();
+                    $file = Input::file('image')->move($destination_path, $name);
                 $check_error = Input::file('image')->getError();
                 if($check_error != "UPLOADERROK") {
                     if($id)
@@ -109,9 +108,9 @@ class ProductController extends Controller{
                 $fileInstance = new File();
                 $saved_file = array(
                     'name' => $file->getFilename(),
-                    'size' => $file->getSize()
+                    'type' => 'PRODUCT'
                 );
-                $response = $fileInstance->upload($saved_file);
+                $response = $fileInstance->store($saved_file);
                 $data = json_decode($response->getContent(),true);
                 if (isset($data['errors'])) {
                     if($id)
@@ -128,7 +127,7 @@ class ProductController extends Controller{
         else $input['image_id'] = null;
         unset($input['image']);
         if($id){
-            $response = $this->model->updateProduct($input);
+            $response = $this->model->updateItem($input);
             $data = json_decode($response->getContent(), true);
             if (isset($data['errors'])) {
                 return Redirect::route('products.edit',['id' => $id])->with('error', $data['errors']['message']);
@@ -167,7 +166,7 @@ class ProductController extends Controller{
     public function delete($id){
         if(!$id)
             return Redirect::route('products.manage')->with('error', trans('message.product_not_exist'));
-        $response = $this->model->deleteProduct($id);
+        $response = $this->model->remove($id);
         $data = json_decode($response->getContent(),true);
         if(isset($data['errors']))
             return Redirect::route("products.manage", ['id' => $id])->with('error',$data['errors']['message']);
@@ -179,14 +178,14 @@ class ProductController extends Controller{
     {
         $input = json_decode(Input::get('ids'));
         foreach ($input as $val) {
-            $response = $this->model->deleteProduct($val);
+            $response = $this->model->remove($val);
             $data = json_decode($response->getContent(),true);
             if(isset($data['errors'])){
                 Session::flash('error', $response['errors']['message']);
                 return "false";
             }
         }
-        Session::flash('success',"Xóa SP thành công");
+        Session::flash('success',trans('message.delete_product_successfully'));
         return "true";
     }
 
@@ -195,7 +194,7 @@ class ProductController extends Controller{
         if(!$id)
             return Redirect::route('products.manage-fp')->with('error', trans('message.product_not_exist'));
         $fea_product = new FeaturedProduct();
-        $response = $fea_product->deleteFeaturedProduct($id);
+        $response = $fea_product->remove($id);
         $data = json_decode($response->getContent(),true);
         if(isset($data['errors']))
             return Redirect::route("products.manage-fp", ['id' => $id])->with('error',$data['errors']['message']);
@@ -208,7 +207,7 @@ class ProductController extends Controller{
         $fea_product = new FeaturedProduct();
         $input = json_decode(Input::get('ids'));
         foreach ($input as $val) {
-            $response = $fea_product->deleteFeaturedProduct($val);
+            $response = $fea_product->remove($val);
             $data = json_decode($response->getContent(),true);
             if(isset($data['errors'])){
                 Session::flash('error', $response['errors']['message']);
@@ -230,13 +229,13 @@ class ProductController extends Controller{
                 return "false";
             }
             $product = $data['product'];
-            $response = $featured_products->showProduct($product['id']);
+            $response = $featured_products->show($product['id']);
             $data = json_decode($response->getContent(),true);
             $featured_product = array(
                 'product_id' => $product['id']
             );
             if(isset($data['featuredProduct'])){
-                $response = $featured_products->updateFeaturedProduct($featured_product);
+                $response = $featured_products->updateItem($featured_product);
                 $data = json_decode($response->getContent(), true);
                 if (isset($data['errors'])){
                     Session::flash('error', $response['errors']['message']);
@@ -271,7 +270,8 @@ class ProductController extends Controller{
             return Redirect::route('404')->with('error', $data['errors']['message']);
         $product = $data['product'];
         //        load categories
-        $response = Helper::getList();
+        $model_cate = new Category();
+        $response = $model_cate->getList();
         $data = json_decode($response->getContent(), true);
         if (isset($data['errors']))
             return Redirect::route('categories.manage')->with('error', $data['errors']['message']);
@@ -292,7 +292,8 @@ class ProductController extends Controller{
             'direction' => $direction
         );
         //        load categories
-        $response = Helper::getList();
+        $model_cate = new Category();
+        $response = $model_cate->getList();
         $data = json_decode($response->getContent(), true);
         if (isset($data['errors']))
             return Redirect::route('categories.manage')->with('error', $data['errors']['message']);

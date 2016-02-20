@@ -12,7 +12,6 @@ use Session;
 use App\Model\Category as Category;
 use Input;
 use Redirect;
-use App\Helpers\Category as Helper;
 
 class CategoryController extends Controller{
     protected $model;
@@ -31,7 +30,7 @@ class CategoryController extends Controller{
             return view('categories.manage')->with('error',$data['errors']['message']);
         }
         $category = $data['category'];
-        $response = Helper::getList();
+        $response = $this->model->getList();
         $data = json_decode($response->getContent(), true);
         if (isset($data['errors']))
             return Redirect::route('categories.manage')->with('error', $data['errors']['message']);
@@ -55,7 +54,7 @@ class CategoryController extends Controller{
         $input['name'] = trim(preg_replace('/[^(\x20-\x7F)]*/','', $input['name']));
         $input['description'] = trim($input['description']);
         if($id){
-            $response = $this->model->updateCategory($input);
+            $response = $this->model->updateItem($input);
             $data = json_decode($response->getContent(),true);
             if (isset($data['errors'])) {
                 return Redirect::route('categories.edit',['id' => $id])->with('error', $data->errors->message);
@@ -93,7 +92,7 @@ class CategoryController extends Controller{
     {
         if(!$id)
             return Redirect::route('categories.manage')->with('error', trans('message.category_not_exist'));
-        $response = $this->model->deleteCategory($id);
+        $response = $this->model->remove($id);
         $data = json_decode($response->getContent());
         if($data->errors)
             return Redirect::route("categories.manage", ['id' => $id])->with('error',$data->errors->message);
@@ -106,7 +105,7 @@ class CategoryController extends Controller{
     {
         $input = json_decode(Input::get('ids'));
         foreach ($input as $val) {
-            $response = $this->model->deleteCategory($val);
+            $response = $this->model->remove($val);
             $data = json_decode($response->getContent());
             if($data->errors){
                 Session::flash('error', $data->errors->message);
@@ -130,7 +129,7 @@ class CategoryController extends Controller{
             'name' => "wam",
             'description' => 'Why always Me'
         );
-        $response = $this->model->updateCategory($input);
+        $response = $this->model->updateItem($input);
         $response = json_decode($response->getContent());
         if (isset($response->errors)) {
             $input = json_decode(json_encode($input), FALSE);

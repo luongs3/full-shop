@@ -7,97 +7,40 @@
  */
 
 namespace App\Model;
-
-
-use Illuminate\Database\Eloquent\Model;
-use PhpSpec\Exception\Exception;
 use Response;
-use Lang;
 
-class Category extends Model{
+class Category extends BaseModel{
+
     protected $table = "category";
     public $timestamps = false;
     protected $fillable = ['name','description','parent_id'];
 
-    public function show($id = null){
-        try{
-            $category = Category::find($id);
-            if(!$category)
-                return Response::json(['errors' => ['message' => trans('message.category_not_exist')]]);
-            return Response::json(['category' => $category]);
-        }catch (Exception $e){
-            return Response::json(['errors' => ['message' => $e->getMessage()]]);
-        }
+    public function __construct($attributes = array()){
+        parent::__construct($attributes);
+        $this->setModelClass('App\Model\Category');
+        $this->setSingularKey('category');
+        $this->setPluralKey('categories');
+        parent::__construct();
     }
-    public function index($filter=array())
-    {
-        try {
-            $categories = Category::orderBy("id", "DESC")->paginate($filter['limit']);
-            if (!$categories)
-                return Response::json(['errors' => ['message' => trans('message.category_not_exist')]]);
-            return $categories;
-        } catch (Exception $e) {
-            return Response::json(['errors' => ['message' => $e->getMessage()]]);
-        }
-    }
-    public function store($category){
-        $model = new Category($category);
-        try {
-            $model->save();
-            return Response::json(['category' => $model]);
-        } catch (Exception $e) {
-            return [
-                Response::json(['errors' => [
-                    'code' => $e->getCode(), 'message' => $e->getMessage()
-                ]
-            ])];
-        }
-    }
-
-    public function getAll(){
-        try {
-            $categories = Category::get();
-            if (!$categories)
-                return Response::json(['errors' => ['message' => trans('message.category_not_exist')]]);
-            return Response::json(['categories' => $categories]);
-        } catch (Exception $e) {
-            return Response::json(['errors' => ['message' => $e->getMessage()]]);
-        }
-    }
-    public function updateCategory($category){
-        try{
-            $model = Category::find(array_get($category,'id'));
-            if(!$model)
-                return Response::json([
-                    'errors' => ['message' => trans('message.category_not_exist')]
-                ]);
-            $model->fill($category);
-            $model->save();
-            return Response::json(['category' => $model]);
-        }catch (Exception $e){
-            return Response::json(['errors' => ['code' => $e->getCode(), 'message' => $e->getMessage()]]);
-        }
-    }
-
-    public function deleteCategory($id)
-    {
-        try {
-            $category = Category::find($id);
-            if (!$category) {
-                return Response::json([
-                    'errors' => [
-                        ['code' => 'not_exist', 'message' => Lang::get('message.category_not_exist')]
-                    ]
-                ]);
+    public function getList(){
+        $response = $this->getAll();
+        $data = json_decode($response->getContent(), true);
+        if (isset($data['errors']))
+            return Response::json(['errors'=>['message' => $data['errors']['message']]]);
+        $categories = $data['categories'];
+        $i=0;
+        foreach ($categories as $key => $val) {
+            if($val['parent_id']!=null){
+                foreach ($categories as $key1 => $val1) {
+                    if($val['parent_id']==$val1['id']){
+                        $categories[$key1]['children'][$i]['id']= $val['id'];
+                        $categories[$key1]['children'][$i]['name']= $val['name'];
+                        $i++;
+                    }
+                }
+                unset($categories[$key]);
             }
-            $category->delete();
-            return Response::json(['category' => $category ]);
-        }catch (Exception $e){
-            return Response::json([
-                'errors' => [
-                    ['code' => $e->getCode(), 'message' => $e->getMessage()]
-                ]
-            ]);
         }
+        return Response::json(['categories' => $categories]);
     }
 }

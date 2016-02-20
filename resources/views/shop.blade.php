@@ -1,7 +1,5 @@
 @extends("layout.layout")
 @section("content")
-<body>
-
 	<section>
 		<div class="container">
 			<div class="row">

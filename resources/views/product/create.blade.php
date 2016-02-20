@@ -4,11 +4,9 @@
 		<div class="container">
 			<div class="row">
 				@include('layout.left-sidebar-admin')
-					<div class="shopper-informations col-sm-10">
+					<div class="col-sm-10">
 						<div class="row">
-							<div class="step-one">
-								<h3 class="page-header">{{trans('label.add_new_product')}}</h3>
-							</div>
+							<h3 class="page-header">{{trans('label.add_new_product')}}</h3>
 							@include('layout.result')
 							<form  class="form-horizontal" enctype="multipart/form-data" action="{{URL::route('products.save')}}" method="POST" role="form" >
 								<input type="hidden" name="_token" value="{{ csrf_token() }}">

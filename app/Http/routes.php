@@ -15,8 +15,12 @@
 //    return view('welcome');
 //});
 //main page
-Route::get('/', array('as' => '/' , 'uses' =>  'IndexController@index'));
-Route::get('/404', array('as' => '404' , 'uses' =>  'IndexController@getErrorPage'));
+    Route::get('/', array('as' => '/' , 'uses' =>  'IndexController@index'));
+    Route::get('/404', array('as' => '404' , 'uses' =>  'IndexController@getErrorPage'));
+    Route::post('/index/save', array('as'=>'index.save', 'uses' => 'IndexController@save'));
+    Route::get('manage', array('as'=>'index.manage', 'uses' => 'IndexController@manage'));
+    Route::get('test', array('as'=>'index.test', 'uses' => 'IndexController@test'));
+
 
 //products
 Route::group(array( 'prefix' => 'products'),function(){

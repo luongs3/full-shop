@@ -14,57 +14,52 @@ use Request;
 use Response;
 
 
-class File extends Model{
+class File extends BaseModel{
     protected $table = "file";
     public $timestamps = false;
-    protected $fillable = ['name', 'type'];
+    protected $fillable = ['name', 'type','url'];
 
-    public function upload($file)
-    {
-        $file = new File($file);
+
+    public function __construct($attributes = array()){
+        parent::__construct($attributes);
+        $this->setModelClass('App\Model\File');
+        $this->setSingularKey('file');
+        $this->setPluralKey('files');
+    }
+
+    public function store($data){
+        $model_class = $this->getModelClass();
+        if($data['type']=='PRODUCT')
+            $data['url'] = '/images/product' . '/' . $data['name'];
+        elseif($data['type']=='SLIDER')
+            $data['url'] = '/images/home' . '/' .  $data['name'];
+        $model = new $model_class($data);
         try {
-            $file->save();
-            return Response::json(['file' => $file]);
+            $model->save();
+            return Response::json([$this->getSingularKey() => $model]);
         } catch (Exception $e) {
             return [
-                'errors' => [
+                Response::json(['errors' => [
                     'code' => $e->getCode(), 'message' => $e->getMessage()
                 ]
-            ];
+                ])];
         }
     }
-
-    public function show($file_id)
-    {
-        try{
-            $file = File::where('id',$file_id)->first();
-            if(!$file)
-                return Response::json(['errors' =>[
-                    'message' => 'File not found'
-                ]]);
-            return Response::json(['file' => $file]);
-        }catch (Exception $e){
+    public function remove($id){
+        $model_class = $this->getModelClass();
+        try {
+            $model = $model_class::find($id);
+            if (!$model) {
+                return Response::json([
+                    'errors' => ['message' => trans('message.'.$this->getSingularKey(). '_not_exist')]
+                ]);
+            }
+            unlink(public_path($model->url));
+            $model->delete();
+            return Response::json([$this->getSingularKey() => $model]);
+        } catch (Exception $e) {
             return Response::json([
-                'errors' => [
-                    'code' => $e->getCode(), 'message' => $e->getMessage()
-                ]
-            ]);
-        }
-    }
-
-    public function getSliderImages(){
-        try{
-            $file = File::where('type','slider')->orderBy('id',"DESC")->get();
-            if(!$file)
-                return Response::json(['errors' =>[
-                    'message' => trans('message.file_not_found')
-                ]]);
-            return Response::json(['files' => $file]);
-        }catch (Exception $e){
-            return Response::json([
-                'errors' => [
-                    'code' => $e->getCode(), 'message' => $e->getMessage()
-                ]
+                'errors' => ['code' => $e->getCode(), 'message' => $e->getMessage()]
             ]);
         }
     }

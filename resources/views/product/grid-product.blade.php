@@ -43,7 +43,7 @@
 					@if($val->status==1)
 						<td class="alert alert-success">{{trans('general.in_stock')}}</td>
 					@else
-						<td class="alert alert-danger">{{trans('general.out_stock')}}</td>
+						<td class="alert alert-danger">{{trans('general.out_of_stock')}}</td>
 					@endif
 					<td>{{$val->quantity}}</td>
 					<td>{{$val->buy_times}}</td>

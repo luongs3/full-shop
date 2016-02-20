@@ -7,6 +7,7 @@
 				@include("layout.left-sidebar-admin")
 					<div class="col-sm-10 padding-right">
 						@include('layout.result')
+						<h3 class="page-header">{{trans('label.manage_product')}}</h3>
 						<meta name="_token" content="{{ csrf_token() }}"/>
 					<button class="btn btn-default btn_submit" id="btn_update_fp">{{trans('label.featured_product')}}</button>
 					<button class="btn btn-default btn_submit" id="btn_delete">{{trans('label.delete')}}</button>
