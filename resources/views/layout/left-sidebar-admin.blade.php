@@ -5,6 +5,7 @@
 		{{--<h4 class="left-menu"><a href="{{URL::route('products.create')}}">Thêm mới</a></h4>--}}
 		<h2><a href="{{URL::Route('products.manage-fp')}}">{{trans('label.featured_product')}}</a></h2>
 		<h2><a href="{{URL::Route('categories.manage')}}">{{trans('label.category')}}</a></h2>
+		<h2><a href="{{URL::Route('orders.manage')}}">{{trans('label.order')}}</a></h2>
 		{{--<div class="brands_products"><!--brands_products-->--}}
 			{{--<h2>Brands</h2>--}}
 			{{--<div class="brands-name">--}}

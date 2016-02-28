@@ -7,14 +7,13 @@ use Response;
 class Product extends BaseModel
 {
 	protected $table = "product";
-	protected $fillable = ['id','name','description','price','sku','attributes','view','buy_times','brand','sale_price','category_id','status','quantity','image_id'];
+	protected $fillable = ['id','name','description','price','ratio','sku','attributes','view','buy_times','brand','sale_price','category_id','status','quantity','image_id'];
 
 	public function __construct($attributes = array()){
 		parent::__construct($attributes);
 		$this->setModelClass('App\Model\Product');
 		$this->setSingularKey('product');
 		$this->setPluralKey('products');
-		parent::__construct();
 	}
 
 	public function getCategoryProducts($category_id, $filter=array()){
@@ -34,7 +33,8 @@ class Product extends BaseModel
 					$product->image_id = $file['id'];
 					$product->image_url = "/images/product/" . $file['name'];
 				}
-				$product->price = number_format($product->price);
+//				$product->price = number_format($product->price);
+//				$product->sale_price = number_format($product->sale_price);
 			}
 			return $products;
 		} catch (Exception $e) {
@@ -59,7 +59,8 @@ class Product extends BaseModel
 				if (isset($data['errors']))
 					return Response::json(['errors' => ['message' => trans('message.product_not_exist')]]);
 				$file = $data['file'];
-				$product->price = number_format($product->price);
+//				$product->price = number_format($product->price);
+//				$product->sale_price = number_format($product->sale_price);
 				$product->image_id = $file['id'];
 				$product->image_url = "/images/product/" . $file['name'];
 			}
@@ -86,7 +87,9 @@ class Product extends BaseModel
 				$file = $data['file'];
 				$product->image_id = $file['id'];
 				$product->image_url = "/images/product/" . $file['name'];
-				$product->price = number_format($product->price);
+//				$product->price = number_format($product->price);
+//				$product->sale_price = number_format($product->sale_price);
+
 			}
 			return Response::json([$this->getSingularKey() => $product]);
 		}catch (Exception $e){

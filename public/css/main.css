@@ -859,12 +859,33 @@ h2.title {
   top: 0;
   right: 0;
 }
+.productinfo div.sale_line{
+  line-height: 25px;
+  margin-top: 15px;
 
-.productinfo h2{
+}
+span.price{
 	color: #FE980F;
 	font-family: 'Roboto', sans-serif;
-	font-size: 24px;
 	font-weight: 700;
+  font-size: 18px;
+  margin: 0 10px 5px 0;
+}
+.productinfo h2{
+  color: #FE980F;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+}
+.sale_line.label{
+  vertical-align: middle;
+  margin-bottom: 10px !important;
+}
+.label{
+  font-size: 100%;
+}
+.label-warning{
+  background-color: #FE980F;
 }
 .product-overlay h2{
 	color: #fff;
@@ -948,6 +969,8 @@ h2.title {
   color: #696763;
   font-family: 'Roboto', sans-serif;
   font-size: 15px;
+  width: 253px !important;
+  float: left;
   margin-bottom: 25px;
 }
 
@@ -1565,7 +1588,7 @@ h2.title {
 }
 
 
-#cart_items .cart_info .cart_menu {
+tr.cart_menu {
   background: #FE980F;
   color: #fff;
   font-size: 16px;
@@ -1589,6 +1612,8 @@ h2.title {
 .cart_info table tr td {
   border-top: 0 none;
   vertical-align: inherit;
+  /*width: 220px !important;*/
+  /*background-color: #0000C2;*/
 }
 
 
@@ -1624,10 +1649,8 @@ h2.title {
   color: #FE980F;
   font-size: 24px;
 }
-
-.cart_product {
-  display: block;
-  margin: 15px -70px 10px 25px;
+.cart_quantity{
+  text-align: center;
 }
 
 .cart_quantity_button a {
@@ -1641,43 +1664,37 @@ h2.title {
   width: 35px;
   float: left;
 }
-
-
 .cart_quantity_input {
   color: #696763;
-  float: left;
   font-size: 16px;
   text-align: center;
   font-family: 'Roboto',sans-serif;
   
 }
-
-
 .cart_delete  {
   display: block;
-  margin-right: -12px;
+  margin-top: 40px;
   overflow: hidden;
+  line-height: 178px;
+  vertical-align: middle !important;
+
 }
 
-
-.cart_delete a {
+.cart_delete button {
   background:#F0F0E9;
   color: #FFFFFF;
   padding: 5px 7px;
+  border: none;
   font-size: 16px
 }
-
-.cart_delete a:hover {
+.cart_delete button:hover {
   background:#FE980F
 }
-
-
 .bg h2.title {
   margin-right:0;
   margin-left:0;
   margin-top: 0;
 }
-
 .heading h3 {
   color: #363432;
   font-size: 20px;
@@ -1876,7 +1893,8 @@ h2.title {
 
 
 .shopper-info p, 
-.bill-to p, 
+.bill-to p,
+.review-payment p,
 .order-message p {
   color: #696763;
   font-size: 20px;
@@ -1899,8 +1917,7 @@ h2.title {
 
 
 .shopper-info > form > input, 
-.form-two > form > select, 
-.form-two > form > input, 
+.form-one > form > select,
 .form-one > form > input {
   background:#F0F0E9;
   border: 0 none;

@@ -1,28 +1,29 @@
 @extends("layout.layout")
 
 @section("content")
-	<section>
+	<section class="manage">
 		<div class="container">
 			<div class="row">
 				@include("layout.left-sidebar-admin")
-					<div class="col-sm-10 padding-right">
+				<div class="col-sm-10 padding-right">
 						@include('layout.result')
+						<h3 class="page-header">{{trans('label.manage_category')}}</h3>
 						<meta name="_token" content="{{ csrf_token() }}"/>
-					<button class="btn btn-default" id="btn_delete">{{trans('label.delete')}}</button>
-					<a href="{{URL::route('categories.create')}}" class="btn btn-default" id="btn_add">{{trans('label.add_new')}}</a>
-					@include("category.grid-category")
+					<button class="btn btn-default btn_submit" id="btn_delete">{{trans('label.delete')}}</button>
+					<a href="{{URL::route('categories.create')}}" class="btn btn-default btn_submit" id="btn_add">{{trans('label.add_new')}}</a>
+					<div id="grid">
+						@include("category.grid-category")
+					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 	<script>
-		$(function(){
 			$(document).ready(function() {
-				$('table#myTable').DataTable({
+				$('table#category-table').DataTable({
 					"bPaginate":false
 				});
-			} );
-		});
+			});
 		$("#btn_delete").click(function(){
 			var response = confirm("Bạn có chắc chắn muốn xóa những Loại SP này không?");
 			if( response){

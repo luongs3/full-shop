@@ -64,11 +64,11 @@ abstract class BaseModel extends Model
         }
     }
 
-    public function getAll($filter = array())
+    public function getAll($filter = array(),$order=['key'=>"id",'aspect' => 'DESC'])
     {
         $model_class = $this->getModelClass();
         try {
-            $model = $model_class::where($filter)->orderBy('id',"DESC")->get();
+            $model = $model_class::where($filter)->orderBy($order['key'],$order['aspect'])->get();
             if (!$model)
                 return Response::json(['errors' => ['message' => trans('message.'.$this->getSingularKey(). '_not_exist')]]);
             return Response::json([$this->getPluralKey() => $model]);

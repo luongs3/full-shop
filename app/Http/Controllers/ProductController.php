@@ -88,12 +88,11 @@ class ProductController extends Controller{
         $input['attributes'] = serialize(array_get($input,'attributes'));
         if(isset($input['sale_price'])){
             $input['ratio'] = round((($input['price']-$input['sale_price'])/$input['price']) * 100,0);
-        }
-        if(isset($input['ratio']) && !isset($input['sale_price']))
+        } elseif(isset($input['ratio']) && !isset($input['sale_price']))
             $input['sale_price'] = round($input['price'] - ( $input['price'] * $input['ratio'])/100,-2);
         if(empty($input['category_id'])) $input['category_id'] =1;
 //        file process
-        if(Input::hasFile('image')) {
+        if(Input::hasFile('image') && $input['image_hidden']=='') {
             if(Input::file('image')->getSize() < 500000 && Input::file('image')->isValid()){
                     $destination_path = public_path('images/product');
                     $name = Input::file('image')->getClientOriginalName();
@@ -123,7 +122,12 @@ class ProductController extends Controller{
                 }
             }
         }
-        if(isset($image_id)) $input['image_id'] = $image_id;
+         if(isset($image_id))
+            $input['image_id'] = $image_id;
+         elseif($input['image_hidden']!=""){
+             $input['image_id'] = $input['image_hidden'];
+             unset($input['image_hidden']);
+         }
         else $input['image_id'] = null;
         unset($input['image']);
         if($id){
@@ -153,7 +157,6 @@ class ProductController extends Controller{
             'page' => 0,
             'limit' => 10
         );
-//        $data = json_decode($this->model->getProducts(null,$filter));
         $data = $this->model->index($filter);
         $scripts = [
             "/js/jquery.dataTables.min.js",
@@ -174,8 +177,7 @@ class ProductController extends Controller{
             return Redirect::route("products.manage")->with('success',trans('message.delete_product_successfully'));
     }
 
-    public function massiveDelete()
-    {
+    public function massiveDelete(){
         $input = json_decode(Input::get('ids'));
         foreach ($input as $val) {
             $response = $this->model->remove($val);

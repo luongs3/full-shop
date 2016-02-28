@@ -6,6 +6,7 @@
  * Time: 5:57 PM
  */
 return [
+    'test' => 'Test',
     'welcome' => 'Chào mừng quý khách',
     'can_not_find_this_page' => 'Chúng tôi không thể tìm thấy trang bạn yêu cầu',
     'bring_me_back_home' => 'Bring me back Home',
@@ -23,5 +24,9 @@ return [
     'delete_category_successfully' => 'Xóa danh mục thành công',
     'file_not_found' => 'Không tìm thấy file',
     'account_not_exist' => 'Tài khoản không tồn tại',
-
+    'remove_item_successfully' => 'Xóa sản phẩm khỏi đơn hàng thành công',
+    'update_these_order?' => 'Cập nhật những đơn hàng này không?',
+    'update_order_status_successfully' => 'Cập nhật trạng thái đơn hàng thành công',
+    'test' => 'Test',
+    'test' => 'Test',
 ];

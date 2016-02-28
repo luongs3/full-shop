@@ -1,7 +1,7 @@
 @extends("layout.layout")
 
 @section("content")
-	<section>
+	<section class="manage">
 		<div class="container">
 			<div class="row">
 				@include("layout.left-sidebar-admin")
@@ -22,7 +22,7 @@
 	<script>
 		$(function(){
 			$(document).ready(function() {
-				$('table#myTable').DataTable({
+				$('table#product-table').DataTable({
 					"bPaginate":false
 				});
 			} );

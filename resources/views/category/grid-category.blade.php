@@ -1,7 +1,7 @@
-<table id="myTable" class="table table-bordered table-striped table-responsive">
+<table id="category-table" class="table table-bordered table-striped table-responsive table-grid">
 		<thead>
 		<tr role="row">
-			<th></th>
+			<th><input class="general_checkbox" name="general_checkbox" type="checkbox" id="general_checkbox"></th>
 			<th title="Asc">{{trans('label.id')}}</th>
 			<th title="Asc">{{trans('label.name')}}</th>
 			<th data-name="edit" title="edit">{{trans('label.edit')}}</th>
@@ -20,6 +20,4 @@
 
 		</tbody>
 	</table>
-<script>
 
-</script>

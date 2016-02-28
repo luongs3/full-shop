@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use Validator;
+use Illuminate\Support\Facades\Redirect;
 use Input;
+use Auth;
+use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -68,23 +70,5 @@ class AuthController extends Controller
             'status' => $data['status'],
             'password' => bcrypt($data['password']),
         ]);
-    }
-    public function postRegister()
-    {
-        $input = Input::all();
-        if (array_get($input,'secret_key')=="10201994") {
-            $input['role'] = 'admin';
-            $input['status'] = 1;
-            $validator = $this->validator($input);
-
-            if ($validator->fails()) {
-                $this->throwValidationException(
-                    $input, $validator
-                );
-            }
-            $this->login($this->create($input));
-            return redirect($this->redirectPath());
-        }
-        else return redirect()->route('auth.register')->with('error',trans('message.secret_key_not_valid'));
     }
 }

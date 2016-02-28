@@ -14,6 +14,9 @@
 //Route::get('/', function () {
 //    return view('welcome');
 //});
+//common
+Route::get('select-districts/{province_id}',array('as'=> 'select-districts','uses' => 'OrderController@selectDistricts'));
+
 //main page
     Route::get('/', array('as' => '/' , 'uses' =>  'IndexController@index'));
     Route::get('/404', array('as' => '404' , 'uses' =>  'IndexController@getErrorPage'));
@@ -57,6 +60,34 @@ Route::group(array( 'prefix' => 'categories'),function(){
     Route::get("test-view", array('as' => 'categories.test-view','uses'=> 'CategoryController@testView'));
     Route::get("test", array('as' => 'categories.test','uses'=> 'CategoryController@test'));
 });
+//orders
+Route::group(array( 'prefix' => 'orders'),function(){
+    Route::get("/", array('as' => 'orders','uses'=> 'OrderController@index'));
+    Route::get("create", array('as' => 'orders.create','middleware' => 'auth','uses'=> 'OrderController@create'));
+    Route::get("manage", array('as' => 'orders.manage','middleware' => 'auth','uses'=> 'OrderController@manage'));
+    Route::post("update-status", array('as' => 'orders.update-status','middleware' => 'auth','uses'=> 'OrderController@updateStatus'));
+    Route::get("edit/{id}", array('as' => 'orders.edit','middleware' => 'auth', 'uses' => 'OrderController@edit'));
+    Route::get("edit/{id}/address", array('as' => 'orders.edit-address','middleware' => 'auth', 'uses' => 'OrderController@editAddress'));
+    Route::post("save/{id?}", array('as' => 'orders.save','middleware' => 'auth','uses'=> 'OrderController@save'));
+    Route::get("delete/{id}", array('as' => 'orders.delete','middleware' => 'auth', 'uses' => 'OrderController@delete'));
+    Route::post("massive-delete", array('as' => 'orders.massive-delete','middleware' => 'auth', 'uses' => 'OrderController@massiveDelete'));
+    Route::get("abc", array('as' => 'orders.abc','uses'=> 'OrderController@abc'));
+    Route::get("test-view", array('as' => 'orders.test-view','uses'=> 'OrderController@testView'));
+    Route::get("test", array('as' => 'orders.test','uses'=> 'OrderController@test'));
+});
+//cart
+Route::group(array( 'prefix' => 'cart'),function(){
+    Route::get("", array('as' => 'cart','uses'=> 'OrderController@cart'));
+    Route::post("add-item", array('as' => 'cart.add-item','uses'=> 'OrderController@addItem'));
+    Route::post("remove-item", array('as' => 'cart.remove-item','uses'=> 'OrderController@removeItem'));
+    Route::post("change-quantity", array('as' =>'cart.change-quantity','uses'=> 'OrderController@changeQuantity'));
+});
+//checkout
+Route::get("checkout", array('as' => 'get-checkout','uses'=> 'OrderController@getCheckout'));
+Route::post("post-checkout", array('as' => 'post-checkout','uses'=> 'OrderController@postCheckout'));
+//result
+Route::get("result", array('as' => 'result','uses'=> 'OrderController@result'));
+
 //Users
 Route::group(array( 'prefix' => 'users'),function(){
     Route::get("/", array('as' => 'users','uses'=> 'UserController@index'));
@@ -86,4 +117,5 @@ Route::controllers([
     'password' => 'Auth\PasswordController',
 ]);
 
+Route::get('session/destroy', array('as' => 'session.destroy', 'uses' => 'IndexController@sessionDestroy'));
 Route::get('test', array('as' => 'index.test', 'uses' => 'IndexController@test'));

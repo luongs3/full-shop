@@ -20,4 +20,8 @@ return [
     'sale_ASC' => 'Giá tăng dần',
     'sale_off_ratio_DESC' => 'Mức giảm giá giảm dần',
     'sale_off_ratio_ASC' => 'Mức giảm giá tăng dần',
+    'pending' => 'Đang xử lý',
+    'success' => 'Hoàn Thành',
+    'cancel' => 'Hủy',
+    'test' => 'Test',
 ];

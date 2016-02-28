@@ -31,7 +31,7 @@
 									<td>{{$val->product_id}}</td>
 									<td>{{$val->name}}</td>
 									<td>{{$val->sku}}</td>
-									<td><a href="{{URL::route('products.edit') .'/'.$val->product_id}}" title="edit"><i class="fa fa-edit"></i> </a> </td>
+									<td><a href="{{URL::route('products.edit',['id' => $val->product_id])}}" title="edit"><i class="fa fa-edit"></i> </a> </td>
 								</tr>
 							@endforeach
 							{!! $products->render() !!}

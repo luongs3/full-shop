@@ -1,20 +1,20 @@
-<script>
-	window.fbAsyncInit = function() {
-		FB.init({
-			appId      : '488056531319009',
-			xfbml      : true,
-			version    : 'v2.5'
-		});
-	};
+{{--<script>--}}
+	{{--window.fbAsyncInit = function() {--}}
+		{{--FB.init({--}}
+			{{--appId      : '488056531319009',--}}
+			{{--xfbml      : true,--}}
+			{{--version    : 'v2.5'--}}
+		{{--});--}}
+	{{--};--}}
 
-	(function(d, s, id){
-		var js, fjs = d.getElementsByTagName(s)[0];
-		if (d.getElementById(id)) {return;}
-		js = d.createElement(s); js.id = id;
-		js.src = "//connect.facebook.net/en_US/sdk.js";
-		fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
-</script>
+	{{--(function(d, s, id){--}}
+		{{--var js, fjs = d.getElementsByTagName(s)[0];--}}
+		{{--if (d.getElementById(id)) {return;}--}}
+		{{--js = d.createElement(s); js.id = id;--}}
+		{{--js.src = "//connect.facebook.net/en_US/sdk.js";--}}
+		{{--fjs.parentNode.insertBefore(js, fjs);--}}
+	{{--}(document, 'script', 'facebook-jssdk'));--}}
+{{--</script>--}}
 <div class="col-sm-3">
 	<div class="left-sidebar">
 		<h2>Category</h2>
@@ -162,9 +162,9 @@
 				</ul>
 			</div>
 		</div><!--/brands_products-->
-		<div class="facebook-fanpage">
-			<div class="fb-page" data-href="https://www.facebook.com/facebook" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/facebook"><a href="https://www.facebook.com/facebook">Facebook</a></blockquote></div></div>
-		</div>
+		{{--<div class="facebook-fanpage">--}}
+			{{--<div class="fb-page" data-href="https://www.facebook.com/facebook" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/facebook"><a href="https://www.facebook.com/facebook">Facebook</a></blockquote></div></div>--}}
+		{{--</div>--}}
 
 	</div>
 </div>

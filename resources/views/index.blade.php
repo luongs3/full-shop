@@ -82,28 +82,25 @@
 													<img src="{{$val['image_url']}}" alt="" />
 												</a>
 												@if(isset($val['sale_price']))
-													<h2 class="sale_price">{{$val['sale_price']}} đ</h2>
-													<h2>{{$val['price']}} đ</h2>
+													<div class="sale_line">
+														<span class="price">{{$val['sale_price']}} đ</span>
+														<span class="label label-warning">-{{$val['ratio']}}%</span>
+													</div>
+													<span class="price sale_price">{{$val['price']}} đ</span>
 												@else
-													<h2>{{$val['price']}} đ</h2>
+													<span class="price">{{$val['price']}} đ</span>
 												@endif
 												<p>{{$val['name']}}</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												<button class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>{{trans('general.add_to_cart')}}</button>
+												<input type="hidden" name="product_id" id="{{$val['product_id']}}">
 											</div>
-											{{--<div class="product-overlay">--}}
-												{{--<div class="overlay-content">--}}
-													{{--<h2>{{$val['price']}}</h2>--}}
-													{{--<p>{{$val['name']}}</p>--}}
-													{{--<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>--}}
-												{{--</div>--}}
-											{{--</div>--}}
 										</div>
-										<div class="choose">
-											<ul class="nav nav-pills nav-justified">
-												<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-												<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
-											</ul>
-										</div>
+										{{--<div class="choose">--}}
+											{{--<ul class="nav nav-pills nav-justified">--}}
+												{{--<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>--}}
+												{{--<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>--}}
+											{{--</ul>--}}
+										{{--</div>--}}
 									</div>
 								</div>
 							@endforeach
@@ -265,7 +262,7 @@
 												<img src="/images/home/gallery1.jpg" alt="" />
 												<h2>$56</h2>
 												<p>Easy Polo Black Edition</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												<button href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
 											</div>
 											
 										</div>
@@ -499,4 +496,20 @@
 			</div>
 		</div>
 	</section>
+	<script>
+		$(document).ready(function(){
+			$('.add-to-cart').click(function(){
+				$.ajax({
+					type: "POST",
+					url: "/cart/add-item",
+					data: {product_id:  $(this).next().attr('id'),
+						quantity: 1,
+						_token: "{{ csrf_token() }}"},
+					success: function(data){
+						window.location="{{URL::route('cart')}}"
+					}
+				});
+			});
+		});
+	</script>
 @endsection

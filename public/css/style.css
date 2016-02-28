@@ -23,9 +23,9 @@ label{
     margin-top: 40px;
     color: #FE980F;
 }
-.btn{
-    float: right!important;
-}
+/*.btn{*/
+    /*float: right!important;*/
+/*}*/
 #image_url{
     margin: 10px;
 }
@@ -65,5 +65,49 @@ div.dropdown{
     text-decoration: line-through;
 }
 h3.page-header{
-    border-bottom: solid 4px #3836eb;
+    border-bottom: solid 4px #eee;
+}
+.cart_product a img{
+    height: 110px;
+    width: 110px;
+}
+.loading-mask {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #F0FBF8;
+    position: absolute;
+    text-align: center;
+    opacity: 0.60;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+    z-index: 500;
+    display: none;
+}
+.loading {
+    position: fixed;
+    top: 200px;
+    left: 50%;
+    width: 200px;
+    margin-left: -105px;
+    padding: 15px 30px;
+    /*background: #EAFAF6;*/
+    /*border: 2px solid #FE980F;*/
+    /*color: #FE980F;*/
+    font-weight: bold;
+    text-align: center;
+    opacity: 0.60;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+    z-index: 1000;
+    display: none;
+}
+#btn_update_status, #btn_add, #btn_delete{
+    margin-bottom: 10px;
+}
+.panel-heading h3{
+    font-size: 16px;
+    margin: 5px 0 5px 0;
+}
+.right{
+    float: right;
 }

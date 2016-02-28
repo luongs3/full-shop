@@ -7,11 +7,7 @@
 					<div class="shopper-informations col-sm-10">
 						<div class="row">
 							<h2 class="page-header">{{trans('label.edit_product')}}</h2>
-							@if(session('success'))
-								<div class="alert alert-success">{{session('success')}}</div>
-							@elseif(session('error'))
-								<div class="alert alert-danger">{{session('error')}}</div>
-							@endif
+							@include('layout.result')
 							<form  class="form-horizontal" enctype="multipart/form-data" action="{{URL::route('products.save') . '/'.$product['id']}}" method="POST" role="form" >
 								<input type="hidden" name="_token" value="{{ csrf_token() }}">
 								<input type="hidden" name="id" value="{{$product['id'] or ''}}">
@@ -31,7 +27,7 @@
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="price">{{trans('label.price')}}</label>
 										<div class="col-sm-9">
-											<input class="form-control" id="price" type="text" name="price" placeholder="100000"  value="{{$product['price'] or ''}}">
+											<input class="form-control" id="price" type="number" name="price" placeholder="100000"  value="{{$product['price'] or ''}}">
 										</div>
 									</div>
 									<div class="form-group">
@@ -66,13 +62,13 @@
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="sale_price">{{trans('label.sale_off')}}</label>
 										<div class="col-sm-9">
-											<input class="form-control" type="number" name="sale_price" placeholder="Giá sale off" value="{{$product['sale_off'] or ''}}">
+											<input class="form-control" type="number" name="sale_price" placeholder="Giá sale off" value="{{$product['sale_price'] or ''}}">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="ratio">{{trans('label.ratio_sale_off')}}</label>
 										<div class="col-sm-9">
-											<input class="form-control" id="ratio" type="number" name="ratio" min="0" max="100" placeholder="40" value="{{old('sale_off')}}">
+											<input class="form-control" id="ratio" type="number" name="ratio" min="0" max="100" placeholder="40" value="{{$product['ratio']}}">
 										</div>
 									</div>
 									<div class="form-group">
@@ -85,7 +81,8 @@
 								<div class="col-sm-4">
 									<div class="form-group" id="image-preview">
 										<label class="control-label" id="image-label" for="image">{{trans('label.image')}}</label>
-										<input class="form-control" id="image-upload" type="file"  name="image" value="{{$product['image_id'] or ''}}">
+										<input class="hidden" id="image_hidden" name="image_hidden" value="{{$product['image_id'] or ''}}">
+										<input class="form-control" id="image-upload" type="file"  name="image">
 										<img class="img img-responsive" id="image_url" src="{{$product['image_url'] or ''}}">
 									</div>
 									<div class="form-group">
@@ -117,8 +114,8 @@
 					reader.readAsDataURL(input.files[0]);
 				}
 			}
-
 			$("#image-upload").change(function(){
+				$('#image_hidden').val('');
 				readURL(this);
 			});
 		});

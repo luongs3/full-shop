@@ -146,6 +146,11 @@ class IndexController extends Controller {
             return Redirect::route("categories.manage")->with('success',"Xóa sản phẩm thành công");
     }
 
+    public function sessionDestroy(){
+        Session::flush();
+        return Redirect::route('/');
+    }
+
     public function test()
     {
         $file = new File();

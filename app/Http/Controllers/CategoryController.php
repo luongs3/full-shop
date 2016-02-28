@@ -78,7 +78,6 @@ class CategoryController extends Controller{
             'page' => 0,
             'limit' => 10
         );
-//        $data = json_decode($this->model->getcategorys(null,$filter));
         $data = $this->model->index($filter);
         $scripts = [
             "/js/jquery.dataTables.min.js",

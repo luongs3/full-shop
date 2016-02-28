@@ -49,9 +49,15 @@
 								<img src="/images/product-details/new.jpg" class="newarrival" alt="" />
 								<h2>{{$product['name']}}</h2>
 								<p>{{trans('label.sku')}}: {{$product['sku']}}</p>
-								<span>
-									<span>{{$product['price'] or 0}} đ</span>
-								</span>
+								@if(isset($product['sale_price']))
+									<div class="sale_line">
+										<span class="price">{{$product['sale_price']}} đ</span>
+										<span class="label label-warning">-{{$product['ratio']}}%</span>
+									</div>
+									<span class="price sale_price">{{$product['price']}} đ</span>
+								@else
+									<span class="price">{{$product['price']}} đ</span>
+								@endif
 
 								<p><b>{{trans('label.status')}}:</b>
 									@if($product['status']==1)
@@ -62,14 +68,18 @@
 									</p>
 								{{--<p><b>Condition:</b> New</p>--}}
 								<p><b>Brand:</b>{{$product['brand'] or 0}}</p>
-								<span>
-									<label>{{trans('label.quantity')}}:</label>
-									<input type="number" value="1" />
-									<button type="button" class="btn btn-fefault cart">
-										<i class="fa fa-shopping-cart"></i>
-										{{trans('general.add_to_cart')}}
-									</button>
-								</span>
+								<form class="form" action="{{URL::route('cart.add-item')}}" method="post">
+									<input type="hidden" name="_token" value="{{ csrf_token() }}">
+									<input type="hidden" name="product_id" value="{{$product['id']}}">
+									<span>
+										<label>{{trans('label.quantity')}}:</label>
+										<input type="number" name="quantity" value="1"/>
+										<button type="submit" class="btn btn-default cart">
+											<i class="fa fa-shopping-cart"></i>
+											{{trans('general.add_to_cart')}}
+										</button>
+									</span>
+								</form>
 								{{--<a href=""><img src="/images/product-details/share.png" class="share img-responsive"  alt="" /></a>--}}
 							</div><!--/product-information-->
 						</div>

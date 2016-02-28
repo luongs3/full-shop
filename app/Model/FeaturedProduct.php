@@ -10,14 +10,14 @@ class FeaturedProduct extends BaseModel
 	protected $fillable = ['id','product_id'];
 
 
-	public function __construct(){
+	public function __construct($attributes = array()){
+		parent::__construct($attributes);
 		$this->setModelClass('App\Model\FeaturedProduct');
 		$this->setSingularKey('featuredProduct');
 		$this->setPluralKey('featuredProducts');
-		parent::__construct();
 	}
 
-	public function getAll($filter=array()){
+	public function getAll($filter = array(), $order = array()){
 		try {
 			$model_class = $this->getModelClass();
 			$product_model_class = new Product();
@@ -28,10 +28,11 @@ class FeaturedProduct extends BaseModel
 				$temp_val = $val->getAttributes();
 				$response = $product_model_class->show($temp_val['product_id']);
 				$data = json_decode($response->getContent(),true);
-
 				$product = $data['product'];
 				$products[$key]['name'] = $product['name'];
 				$products[$key]['price'] = $product['price'];
+				$products[$key]['ratio'] = $product['ratio'];
+				$products[$key]['sale_price'] = $product['sale_price'];
 				$products[$key]['image_url'] = array_get($product,'image_url');
 				$products[$key]['sku'] = $product['sku'];
 			}

@@ -20,7 +20,6 @@ class Category extends BaseModel{
         $this->setModelClass('App\Model\Category');
         $this->setSingularKey('category');
         $this->setPluralKey('categories');
-        parent::__construct();
     }
     public function getList(){
         $response = $this->getAll();

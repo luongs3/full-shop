@@ -1,7 +1,7 @@
-<table id="myTable" class="table table-bordered table-striped table-responsive">
+<table id="product-table" class="table table-bordered table-striped table-responsive table-grid">
 		<thead>
 		<tr role="row">
-			<th></th>
+			<th><input class="general_checkbox" name="general_checkbox" type="checkbox" id="general_checkbox"></th>
 			<th title="Asc">{{trans('label.id')}}</th>
 			<th title="Asc">{{trans('label.name')}}</th>
 			<th title="Asc">{{trans('label.sku')}}</th>
@@ -9,7 +9,7 @@
 			<th title="Asc">{{trans('label.status')}}</th>
 			<th title="Asc">{{trans('label.quantity')}}</th>
 			<th title="Asc">{{trans('label.buy_times')}}</th>
-			<th data-name="edit"title="edit">{{trans('label.edit')}}</th>
+			<th data-name="edit" title="edit">{{trans('label.edit')}}</th>
 		</tr>
 		{{--<tr class="filter">--}}
 			{{--<td><input class="massive_checkbox" name="massive_checkbox" type="checkbox" value=""></td>--}}
@@ -39,7 +39,7 @@
 					<td>{{$val->id}}</td>
 					<td>{{$val->name}}</td>
 					<td>{{$val->sku}}</td>
-					<td>{{$val->price}}</td>
+					<td>{{number_format($val->price)}}</td>
 					@if($val->status==1)
 						<td class="alert alert-success">{{trans('general.in_stock')}}</td>
 					@else
@@ -54,6 +54,3 @@
 
 		</tbody>
 	</table>
-<script>
-
-</script>
