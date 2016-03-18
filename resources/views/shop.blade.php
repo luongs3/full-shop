@@ -37,7 +37,15 @@
 										<div class="single-products">
 											<div class="productinfo text-center">
 												<a href="{{URL::route('products.detail',['sku'=>$val['sku']])}}"><img src="{{$val['image_url']}}" alt="" /></a>
-												<h2>{{$val['price']}} đ</h2>
+												@if(isset($val['sale_price']))
+													<div class="sale_line">
+														<span class="price">{{number_format($val['sale_price'])}} đ</span>
+														<span class="label label-warning">-{{$val['ratio']}}%</span>
+													</div>
+													<span class="price sale_price">{{number_format($val['price'])}} đ</span>
+												@else
+													<span class="price">{{number_format($val['price'])}} đ</span>
+												@endif
 												<p>{{$val['name']}}</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>

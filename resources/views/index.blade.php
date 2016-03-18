@@ -1,5 +1,12 @@
 @extends("layout.layout")
 @section("content")
+	@if(isset($ad))
+		<div id="ajax-loading-mask" class="loading-mask advert_mask"></div>
+		<div id="ajax-loading" class="loading">
+			<img id="advert_image" src="{{$ad['url'] or ''}}" alt="general.loading..." />
+			<img id="advert_remove" src="/images/home/remove.jpg" alt="{{trans('label.turn_off')}}">
+		</div>
+	@endif
 	<section id="slider"><!--slider-->
 		<div class="container">
 			<div class="row">
@@ -83,14 +90,14 @@
 												</a>
 												@if(isset($val['sale_price']))
 													<div class="sale_line">
-														<span class="price">{{$val['sale_price']}} đ</span>
+														<span class="price">{{number_format($val['sale_price'])}} đ</span>
 														<span class="label label-warning">-{{$val['ratio']}}%</span>
 													</div>
-													<span class="price sale_price">{{$val['price']}} đ</span>
+													<span class="price sale_price">{{number_format($val['price'])}} đ</span>
 												@else
-													<span class="price">{{$val['price']}} đ</span>
+													<span class="price">{{number_format($val['price'])}} đ</span>
 												@endif
-												<p>{{$val['name']}}</p>
+												<p class="product-name">{{$val['name']}}</p>
 												<button class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>{{trans('general.add_to_cart')}}</button>
 												<input type="hidden" name="product_id" id="{{$val['product_id']}}">
 											</div>
@@ -510,6 +517,10 @@
 					}
 				});
 			});
+			$('#advert_remove').click(function(){
+				$('#ajax-loading-mask').hide();
+				$('#ajax-loading').hide();
+			})
 		});
 	</script>
 @endsection

@@ -115,7 +115,7 @@
 													<td>Free</td>
 												</tr>
 												<tr>
-													<td>{{trans('label.total')}}</td>
+													<td>{{trans('label.total_price')}}</td>
 													<td><span>{{$price['total_price']}}</span></td>
 												</tr>
 											</table>

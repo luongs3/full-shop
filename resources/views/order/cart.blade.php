@@ -74,9 +74,9 @@
 				<div class="col-sm-6 col-sm-offset-6">
 					<div class="total_area">
 						<ul>
-							<li>{{trans('label.cart_sub_total')}}<span>{{$price['sub_price']}} đ</span></li>
+							<li>{{trans('label.cart_sub_price')}}<span>{{$price['sub_price']}} đ</span></li>
 							<li>{{trans('label.shipping_cost')}}<span>{{trans('label.free')}}</span></li>
-							<li>{{trans('label.total')}}<span>{{$price['total_price']}}</span></li>
+							<li>{{trans('label.total_price')}}<span>{{$price['total_price']}}</span></li>
 						</ul>
 						<a class="btn btn-default check_out" href="{{URL::route('get-checkout')}}">{{trans('label.check_out')}}</a>
 					</div>
@@ -100,8 +100,6 @@
 			});
 
 			$('.cart_quantity_input').change(function(){
-				console.log($(this).val());
-				return false;
 				$.ajax({
 					beforeSend: function(){
 						$('#ajax-loading-mask').show();

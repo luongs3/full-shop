@@ -1,6 +1,6 @@
 <div class="col-sm-2">
 	<div class="left-sidebar">
-		<h2><a href="{{URL::Route('index.manage')}}">{{trans('label.index')}}</a></h2>
+		<h2><a href="{{URL::Route('manage')}}">{{trans('label.index')}}</a></h2>
 		<h2><a href="{{URL::Route('products.manage')}}">{{trans('label.product')}}</a></h2>
 		{{--<h4 class="left-menu"><a href="{{URL::route('products.create')}}">Thêm mới</a></h4>--}}
 		<h2><a href="{{URL::Route('products.manage-fp')}}">{{trans('label.featured_product')}}</a></h2>

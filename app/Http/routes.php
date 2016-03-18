@@ -17,28 +17,35 @@
 //common
 Route::get('select-districts/{province_id}',array('as'=> 'select-districts','uses' => 'OrderController@selectDistricts'));
 
+Route::get('/404', array('as' => '404' , 'uses' =>  'IndexController@getErrorPage'));
 //main page
-    Route::get('/', array('as' => '/' , 'uses' =>  'IndexController@index'));
-    Route::get('/404', array('as' => '404' , 'uses' =>  'IndexController@getErrorPage'));
-    Route::post('/index/save', array('as'=>'index.save', 'uses' => 'IndexController@save'));
-    Route::get('manage', array('as'=>'index.manage', 'uses' => 'IndexController@manage'));
-    Route::get('test', array('as'=>'index.test', 'uses' => 'IndexController@test'));
+Route::get('',array('as' => '/', 'uses' => 'IndexController@index')) ;
+Route::group(array('prefix' => 'index'),function(){
+   Route::get('',array('as' => 'index', 'uses' => 'IndexController@index')) ;
+   Route::get('search/{key}',array('as' => 'index.search', 'uses' => 'IndexController@search')) ;
+});
 
+Route::group(array('prefix' => 'manage'),function(){
+    Route::post('save', array('as'=>'manage.save', 'uses' => 'IndexController@save'));
+    Route::get('', array('as'=>'manage','middleware' => 'role', 'uses' => 'IndexController@manage'));
+    Route::post('delete-banner', array('as'=>'manage.delete-banner','middleware' => 'role', 'uses' => 'IndexController@deleteBanner'));
+    Route::get('test', array('as'=>'manage.test', 'uses' => 'IndexController@test'));
+});
 
 //products
 Route::group(array( 'prefix' => 'products'),function(){
     Route::get("/", array('as' => 'products','uses'=> 'ProductController@index'));
-    Route::get("create", array('as' => 'products.create','middleware' => 'auth','uses'=> 'ProductController@create'));
-    Route::get("manage", array('as' => 'products.manage','middleware' => 'auth','uses'=> 'ProductController@manage'));
-    Route::get("edit/{id}", array('as' => 'products.edit','middleware' => 'auth', 'uses' => 'ProductController@edit'));
-    Route::post("save/{id?}", array('as' => 'products.save','middleware' => 'auth','uses'=> 'ProductController@save'));
-    Route::get("delete/{id}", array('as' => 'products.delete','middleware' => 'auth', 'uses' => 'ProductController@delete'));
-    Route::post("massive-delete", array('as' => 'products.massive-delete','middleware' => 'auth', 'uses' => 'ProductController@massiveDelete'));
+    Route::get("create", array('as' => 'products.create','middleware' => 'role','uses'=> 'ProductController@create'));
+    Route::get("manage", array('as' => 'products.manage','middleware' => 'role','uses'=> 'ProductController@manage'));
+    Route::get("edit/{id}", array('as' => 'products.edit','middleware' => 'role', 'uses' => 'ProductController@edit'));
+    Route::post("save/{id?}", array('as' => 'products.save','middleware' => 'role','uses'=> 'ProductController@save'));
+    Route::get("delete/{id}", array('as' => 'products.delete','middleware' => 'role', 'uses' => 'ProductController@delete'));
+    Route::post("massive-delete", array('as' => 'products.massive-delete','middleware' => 'role', 'uses' => 'ProductController@massiveDelete'));
 //    featured product
-    Route::post("update-fp", array('as' => 'products.update-fp','middleware' => 'auth', 'uses' => 'ProductController@setFeaturedProducts'));
-    Route::get("manage-fp", array('as' => 'products.manage-fp','middleware' => 'auth', 'uses' => 'ProductController@getFeaturedProducts'));
-    Route::get("delete-fp/{id}", array('as' => 'products.delete-fp','middleware' => 'auth', 'uses' => 'ProductController@deleteFeaturedProduct'));
-    Route::post("massive-delete-fp", array('as' => 'products.massive-delete-fp','middleware' => 'auth', 'uses' => 'ProductController@massiveDeleteFeaturedProducts'));
+    Route::post("update-fp", array('as' => 'products.update-fp','middleware' => 'role', 'uses' => 'ProductController@setFeaturedProducts'));
+    Route::get("manage-fp", array('as' => 'products.manage-fp','middleware' => 'role', 'uses' => 'ProductController@getFeaturedProducts'));
+    Route::get("delete-fp/{id}", array('as' => 'products.delete-fp','middleware' => 'role', 'uses' => 'ProductController@deleteFeaturedProduct'));
+    Route::post("massive-delete-fp", array('as' => 'products.massive-delete-fp','middleware' => 'role', 'uses' => 'ProductController@massiveDeleteFeaturedProducts'));
 //  product category
     Route::get("category/{id}/{order_by?}/{direction?}", array('as' => 'products.category', 'uses' => 'ProductController@getCategoryProducts'));
 //    test
@@ -50,12 +57,12 @@ Route::group(array( 'prefix' => 'products'),function(){
 //categories
 Route::group(array( 'prefix' => 'categories'),function(){
     Route::get("/", array('as' => 'categories','uses'=> 'CategoryController@index'));
-    Route::get("create", array('as' => 'categories.create','middleware' => 'auth','uses'=> 'CategoryController@create'));
-    Route::get("manage", array('as' => 'categories.manage','middleware' => 'auth','uses'=> 'CategoryController@manage'));
-    Route::get("edit/{id}", array('as' => 'categories.edit','middleware' => 'auth', 'uses' => 'CategoryController@edit'));
-    Route::post("save/{id?}", array('as' => 'categories.save','middleware' => 'auth','uses'=> 'CategoryController@save'));
-    Route::get("delete/{id}", array('as' => 'categories.delete','middleware' => 'auth', 'uses' => 'CategoryController@delete'));
-    Route::post("massive-delete", array('as' => 'categories.massive-delete','middleware' => 'auth', 'uses' => 'CategoryController@massiveDelete'));
+    Route::get("create", array('as' => 'categories.create','middleware' => 'role','uses'=> 'CategoryController@create'));
+    Route::get("manage", array('as' => 'categories.manage','middleware' => 'role','uses'=> 'CategoryController@manage'));
+    Route::get("edit/{id}", array('as' => 'categories.edit','middleware' => 'role', 'uses' => 'CategoryController@edit'));
+    Route::post("save/{id?}", array('as' => 'categories.save','middleware' => 'role','uses'=> 'CategoryController@save'));
+    Route::get("delete/{id}", array('as' => 'categories.delete','middleware' => 'role', 'uses' => 'CategoryController@delete'));
+    Route::post("massive-delete", array('as' => 'categories.massive-delete','middleware' => 'role', 'uses' => 'CategoryController@massiveDelete'));
     Route::get("abc", array('as' => 'categories.abc','uses'=> 'CategoryController@abc'));
     Route::get("test-view", array('as' => 'categories.test-view','uses'=> 'CategoryController@testView'));
     Route::get("test", array('as' => 'categories.test','uses'=> 'CategoryController@test'));
@@ -63,14 +70,14 @@ Route::group(array( 'prefix' => 'categories'),function(){
 //orders
 Route::group(array( 'prefix' => 'orders'),function(){
     Route::get("/", array('as' => 'orders','uses'=> 'OrderController@index'));
-    Route::get("create", array('as' => 'orders.create','middleware' => 'auth','uses'=> 'OrderController@create'));
-    Route::get("manage", array('as' => 'orders.manage','middleware' => 'auth','uses'=> 'OrderController@manage'));
-    Route::post("update-status", array('as' => 'orders.update-status','middleware' => 'auth','uses'=> 'OrderController@updateStatus'));
-    Route::get("edit/{id}", array('as' => 'orders.edit','middleware' => 'auth', 'uses' => 'OrderController@edit'));
-    Route::get("edit/{id}/address", array('as' => 'orders.edit-address','middleware' => 'auth', 'uses' => 'OrderController@editAddress'));
-    Route::post("save/{id?}", array('as' => 'orders.save','middleware' => 'auth','uses'=> 'OrderController@save'));
-    Route::get("delete/{id}", array('as' => 'orders.delete','middleware' => 'auth', 'uses' => 'OrderController@delete'));
-    Route::post("massive-delete", array('as' => 'orders.massive-delete','middleware' => 'auth', 'uses' => 'OrderController@massiveDelete'));
+    Route::get("create", array('as' => 'orders.create','middleware' => 'role','uses'=> 'OrderController@create'));
+    Route::get("manage", array('as' => 'orders.manage','middleware' => 'role','uses'=> 'OrderController@manage'));
+    Route::post("update-status", array('as' => 'orders.update-status','middleware' => 'role','uses'=> 'OrderController@updateStatus'));
+    Route::get("edit/{id}", array('as' => 'orders.edit','middleware' => 'role', 'uses' => 'OrderController@edit'));
+    Route::get("edit/{id}/address", array('as' => 'orders.edit-address','middleware' => 'role', 'uses' => 'OrderController@editAddress'));
+    Route::post("save/{id?}", array('as' => 'orders.save','middleware' => 'role','uses'=> 'OrderController@save'));
+    Route::get("delete/{id}", array('as' => 'orders.delete','middleware' => 'role', 'uses' => 'OrderController@delete'));
+    Route::post("massive-delete", array('as' => 'orders.massive-delete','middleware' => 'role', 'uses' => 'OrderController@massiveDelete'));
     Route::get("abc", array('as' => 'orders.abc','uses'=> 'OrderController@abc'));
     Route::get("test-view", array('as' => 'orders.test-view','uses'=> 'OrderController@testView'));
     Route::get("test", array('as' => 'orders.test','uses'=> 'OrderController@test'));

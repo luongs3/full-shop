@@ -28,13 +28,11 @@ class Product extends BaseModel
 					$response = $file->show($product->image_id);
 					$data = json_decode($response->getContent(),'true');
 					if (isset($data['errors']))
-						return Redirect::route('products.manage')->with('error', $data['errors']['message']);
+						return Response::json(['errors' => ['message' => $data['errors']['message']]]);
 					$file = $data['file'];
 					$product->image_id = $file['id'];
-					$product->image_url = "/images/product/" . $file['name'];
+					$product->image_url = $file['url'];
 				}
-//				$product->price = number_format($product->price);
-//				$product->sale_price = number_format($product->sale_price);
 			}
 			return $products;
 		} catch (Exception $e) {
@@ -43,28 +41,47 @@ class Product extends BaseModel
 			]
 			]);
 		}
+	}
 
-
+	public function search($key){
+		$model_class = $this->getModelClass();
+		try{
+			$model = $model_class::where('name','like','%'.$key.'%')->get(['id','name','sku','image_id']);
+			if(!$model)
+				return Response::json(['errors' => ['message' => trans('message.product_not_exist')]]);
+			foreach ($model as $key => $product) {
+				if(!empty($product->image_id)){
+					$file = new File();
+					$response = $file->show($product->image_id);
+					$data = json_decode($response->getContent(),'true');
+					if (isset($data['errors']))
+						return Response::json(['errors' => ['message' => $data['errors']['message']]]);
+					$file = $data['file'];
+					$product->image_url = $file['url'];
+				}
+			}
+			return Response::json([$this->getPluralKey() => $model]);
+		}catch (Exception $e){
+			return Response::json(['errors' => ['message' => $e->getMessage()]]);
+		}
 	}
 	public function show($id = null){
 		$model_class = $this->getModelClass();
 		try{
-			$product = $model_class::find($id);
-			if(!$product)
+			$model = $model_class::find($id);
+			if(!$model)
 				return Response::json(['errors' => ['message' => trans('message.product_not_exist')]]);
-			if(!empty($product->image_id)){
+			if(!empty($model->image_id)){
 				$file = new File();
-				$response = $file->show($product->image_id);
+				$response = $file->show($model->image_id);
 				$data = json_decode($response->getContent(),'true');
 				if (isset($data['errors']))
 					return Response::json(['errors' => ['message' => trans('message.product_not_exist')]]);
 				$file = $data['file'];
-//				$product->price = number_format($product->price);
-//				$product->sale_price = number_format($product->sale_price);
-				$product->image_id = $file['id'];
-				$product->image_url = "/images/product/" . $file['name'];
+				$model->image_id = $file['id'];
+				$model->image_url = "/images/product/" . $file['name'];
 			}
-			return Response::json([$this->getSingularKey() => $product]);
+			return Response::json([$this->getSingularKey() => $model]);
 		}catch (Exception $e){
 			return Response::json(['errors' => ['message' => $e->getMessage()]]);
 		}

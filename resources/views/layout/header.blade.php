@@ -31,31 +31,8 @@
             <div class="row">
                 <div class="col-sm-3">
                     <div class="logo pull-left">
-                        <a href="{{URL::route('/')}}"><img src="/images/home/logo.png" alt="" /></a>
+                        <a href="{{URL::route('index')}}"><img src="/images/home/logo.png" alt="" /></a>
                     </div>
-                    {{--<div class="btn-group pull-right">--}}
-                        {{--<div class="btn-group">--}}
-                            {{--<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">--}}
-                                {{--USA--}}
-                                {{--<span class="caret"></span>--}}
-                            {{--</button>--}}
-                            {{--<ul class="dropdown-menu">--}}
-                                {{--<li><a href="">Canada</a></li>--}}
-                                {{--<li><a href="">UK</a></li>--}}
-                            {{--</ul>--}}
-                        {{--</div>--}}
-{{----}}
-                        {{--<div class="btn-group">--}}
-                            {{--<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">--}}
-                                {{--DOLLAR--}}
-                                {{--<span class="caret"></span>--}}
-                            {{--</button>--}}
-                            {{--<ul class="dropdown-menu">--}}
-                                {{--<li><a href="">Canadian Dollar</a></li>--}}
-                                {{--<li><a href="">Pound</a></li>--}}
-                            {{--</ul>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
                 </div>
                 <div class="col-sm-9">
                     <div class="shop-menu pull-right">
@@ -83,7 +60,7 @@
     <div class="header-bottom"><!--header-bottom-->
         <div class="container">
             <div class="row">
-                <div class="col-sm-9">
+                <div class="col-sm-7">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                             <span class="sr-only">Toggle navigation</span>
@@ -94,7 +71,7 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="index">Home</a></li>
+                            <li><a href="{{URL::route('index')}}">Home</a></li>
                             <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
                                     <li><a href="shop">Products</a></li>
@@ -110,17 +87,52 @@
                                     <li><a href="blog-single">Blog Single</a></li>
                                 </ul>
                             </li>
-                            <li><a href="404">404</a></li>
+                            <li><a href="{{URL::route('404')}}">404</a></li>
                             <li><a href="contact-us">Contact</a></li>
+                            @if(Auth::check() && Auth::user()->role=="admin")
+                                <li><a href="{{URL::route('manage')}}">{{trans('label.manage')}}</a></li>
+                            @endif
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-3">
-                    <div class="search_box pull-right">
-                        <input type="text" placeholder="Search"/>
-                    </div>
+                <div class="col-sm-5">
+                    <form action="{{URL::route('index.search')}}" method="get">
+                        <div class="search_box pull-right">
+                            <input type="text" class="form-control" id="search" placeholder="Search"/>
+                            <button class="btn btn-default" id="btn-search" type="submit">{{trans('label.find')}}</button>
+                            <div id="result">Fuck</div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div><!--/header-bottom-->
 </header><!--/header-->
+<script>
+    $(document).ready(function(){
+        // On Search Submit and Get Results
+        function search() {
+            $.ajax({
+                type: "GET",
+                url: "/index/search/"+$('input#search').val(),
+//                data: {key: $('input#search').val()},
+                cache: false,
+                success: function(data){
+//                    console.log(data);
+                    $("div#result").fadeIn().html(data);
+                }
+            });
+        }
+        $("input#search").keyup(function(e) {
+            // Set Timeout
+        clearTimeout($.data(this, 'timer'));
+            // Do Search
+            if ($(this).val().length>1) {
+                $(this).data('timer', setTimeout(search,200));
+            }
+        });
+    $("input#search").on('focusout',function(){
+        $("div#result").fadeOut();
+    });
+    });
+</script>

@@ -140,6 +140,7 @@ class OrderController extends Controller{
             $order['province'] = Common::showProvince($order['province']);
         if(!empty($order['district']))
             $order['district'] = Common::showDistrict($order['district']);
+        $order['status'] = Common::convertStatus($order['status']);
         return view("order.edit")->with($this->getSingularKey(),$order);
     }
 //    add new category

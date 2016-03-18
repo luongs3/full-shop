@@ -42,15 +42,17 @@ class AuthController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+//    role: 1=admin, 2=contributor, 3=guest
     protected function validator(array $data){
         return Validator::make($data, [
             'name' => 'max:60',
             'address' => '',
             'role' => 'in:admin,user',
-            'status' => 'in:0,1',
+            'status' => 'between:0,1',
             'phone_number' => '',
             'email' => 'required|email|max:100|unique:users',
             'password' => 'required|confirmed|min:6',
+            'password_confirmation' => 'required|alpha_num|between:6,30',
         ]);
     }
 

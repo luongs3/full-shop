@@ -43,4 +43,13 @@ class Common extends Controller{
             return $data['errors'];
         return $data['district']['name'];
     }
+
+    public static function convertStatus($order_status){
+        if($order_status=="SUCCESS")
+            return trans('general.success');
+        elseif($order_status=="PENDING")
+            return trans('general.pending');
+        else
+            return trans('general.cancel');
+    }
 }

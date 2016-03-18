@@ -68,6 +68,11 @@ class ProductController extends Controller{
 
     public function save($id=null){
         $input = Input::all();
+        echo "<pre>";
+        print_r($input);
+        echo "\n";
+        die();
+
 //        check sku
         if (!$id) {
             $response = $this->model->getSku($input['sku']);
@@ -213,11 +218,9 @@ class ProductController extends Controller{
             $data = json_decode($response->getContent(),true);
             if(isset($data['errors'])){
                 Session::flash('error', $response['errors']['message']);
-                return "false";
             }
         }
         Session::flash('success',trans('message.delete_product_successfully'));
-        return "true";
     }
 
     public function setFeaturedProducts(){
@@ -303,7 +306,12 @@ class ProductController extends Controller{
         $response = $this->model->getCategoryProducts($category_id,$filter);
         if (isset($response->errors))
             return Redirect::route('404')->with('error', $response->errors->message);
-        return view('shop')->with('products',$response)->with('category',$category)->with('categories',$categories);
+        $withData = array(
+            'products' => $response,
+            'category' => $category,
+            'categories' => $categories
+        );
+        return view('shop')->with($withData);
 
     }
 //    test
