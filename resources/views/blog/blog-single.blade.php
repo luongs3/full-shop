@@ -8,42 +8,23 @@
 					<div class="blog-post-area">
 						<h2 class="title text-center">Latest From our Blog</h2>
 						<div class="single-blog-post">
-							<h3>Girls Pink T Shirt arrived in store</h3>
+							<h3>{{$post['title']}}</h3>
 							<div class="post-meta">
 								<ul>
-									<li><i class="fa fa-user"></i> Mac Doe</li>
-									<li><i class="fa fa-clock-o"></i> 1:33 pm</li>
-									<li><i class="fa fa-calendar"></i> DEC 5, 2013</li>
+									<li><i class="fa fa-user"></i> {{$post['user_name']}}</li>
+									<li><i class="fa fa-clock-o"></i> {{$post['time']}}</li>
+									<li><i class="fa fa-calendar"></i> {{$post['date']}}</li>
 								</ul>
-								<span>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-half-o"></i>
-								</span>
+								{{--<span>--}}
+								{{--<i class="fa fa-star"></i>--}}
+								{{--<i class="fa fa-star"></i>--}}
+								{{--<i class="fa fa-star"></i>--}}
+								{{--<i class="fa fa-star"></i>--}}
+								{{--<i class="fa fa-star-half-o"></i>--}}
+								{{--</span>--}}
 							</div>
-							<a href="">
-								<img src="/images/blog/blog-one.jpg" alt="">
-							</a>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p> <br>
-
-							<p>
-								Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p> <br>
-
-							<p>
-								Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p> <br>
-
-							<p>
-								Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
-							</p>
-							<div class="pager-area">
-								<ul class="pager pull-right">
-									<li><a href="#">Pre</a></li>
-									<li><a href="#">Next</a></li>
-								</ul>
-							</div>
+							<img class="post-image" src="{{$post['image_url']}}" alt="">
+							<p>{!! $post["content"] !!}</p>
 						</div>
 					</div><!--/blog-post-area-->
 
@@ -70,7 +51,7 @@
 					<div class="socials-share">
 						<a href=""><img src="/images/blog/socials.png" alt=""></a>
 					</div><!--/socials-share-->
-
+					<div class="fb-comments" data-href="{{URL::route('blog.post',['id'=>$post['id']])}}" data-width="800" data-numposts="5"></div>
 					<div class="media commnets">
 						<a class="pull-left" href="#">
 							<img class="media-object" src="/images/blog/man-one.jpg" alt="">
@@ -170,7 +151,7 @@
 							</div>
 						</div>
 					</div><!--/Repaly Box-->
-				</div>	
+				</div>
 			</div>
 		</div>
 	</section>

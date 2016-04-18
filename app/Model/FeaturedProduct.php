@@ -42,7 +42,7 @@ class FeaturedProduct extends BaseModel
 		}
 	}
 
-	public function index($filter=array()){
+	public function index($filter=array('limit'=>10)){
 		$model_class = $this->getModelClass();
 		$product_model = new Product();
 		try {

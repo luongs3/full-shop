@@ -23,5 +23,7 @@ return [
     'pending' => 'Đang xử lý',
     'success' => 'Hoàn thành',
     'cancel' => 'Hủy',
+    'active' => 'Hiển thị',
+    'deactivate' => 'Không',
     'test' => 'Test',
 ];

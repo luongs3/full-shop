@@ -68,11 +68,6 @@ class ProductController extends Controller{
 
     public function save($id=null){
         $input = Input::all();
-        echo "<pre>";
-        print_r($input);
-        echo "\n";
-        die();
-
 //        check sku
         if (!$id) {
             $response = $this->model->getSku($input['sku']);
@@ -97,7 +92,7 @@ class ProductController extends Controller{
             $input['sale_price'] = round($input['price'] - ( $input['price'] * $input['ratio'])/100,-2);
         if(empty($input['category_id'])) $input['category_id'] =1;
 //        file process
-        if(Input::hasFile('image') && $input['image_hidden']=='') {
+        if(Input::hasFile('image') && empty($input['image_hidden'])) {
             if(Input::file('image')->getSize() < 500000 && Input::file('image')->isValid()){
                     $destination_path = public_path('images/product');
                     $name = Input::file('image')->getClientOriginalName();

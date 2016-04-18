@@ -74,6 +74,8 @@ Route::group(array( 'prefix' => 'orders'),function(){
     Route::get("manage", array('as' => 'orders.manage','middleware' => 'role','uses'=> 'OrderController@manage'));
     Route::post("update-status", array('as' => 'orders.update-status','middleware' => 'role','uses'=> 'OrderController@updateStatus'));
     Route::get("edit/{id}", array('as' => 'orders.edit','middleware' => 'role', 'uses' => 'OrderController@edit'));
+    Route::get("load-address-form/{id}", array('as' => 'orders.load-address-form','middleware' => 'role', 'uses' => 'OrderController@loadAddressForm'));
+    Route::post("update-address-form", array('as' => 'orders.update-address-form','middleware' => 'role', 'uses' => 'OrderController@updateAddressForm'));
     Route::get("edit/{id}/address", array('as' => 'orders.edit-address','middleware' => 'role', 'uses' => 'OrderController@editAddress'));
     Route::post("save/{id?}", array('as' => 'orders.save','middleware' => 'role','uses'=> 'OrderController@save'));
     Route::get("delete/{id}", array('as' => 'orders.delete','middleware' => 'role', 'uses' => 'OrderController@delete'));
@@ -118,7 +120,21 @@ Route::group(array( 'prefix' => 'auth'),function(){
     Route::get('register', array('as' => 'auth.register', 'uses' => 'Auth\AuthController@getRegister'));
     Route::post('register', 'Auth\AuthController@postRegister');
 });
+//blog
+Route::group(array( 'prefix' => 'blog'),function(){
+    Route::get("/", array('as' => 'blog','uses'=> 'BlogController@index'));
+    Route::get("create", array('as' => 'blog.create','middleware' => 'role','uses'=> 'BlogController@create'));
+    Route::get("manage", array('as' => 'blog.manage','middleware' => 'role','uses'=> 'BlogController@manage'));
+    Route::get("edit/{id}", array('as' => 'blog.edit','middleware' => 'role', 'uses' => 'BlogController@edit'));
+    Route::post("save/{id?}", array('as' => 'blog.save','middleware' => 'role','uses'=> 'BlogController@save'));
+    Route::get("delete/{id}", array('as' => 'blog.delete','middleware' => 'role', 'uses' => 'BlogController@delete'));
+    Route::post("massive-delete", array('as' => 'blog.massive-delete','middleware' => 'role', 'uses' => 'BlogController@massiveDelete'));
+    Route::get("abc", array('as' => 'blog.abc','uses'=> 'BlogController@abc'));
+    Route::get("test-view", array('as' => 'blog.test-view','uses'=> 'BlogController@testView'));
+    Route::get("test", array('as' => 'blog.test','uses'=> 'BlogController@test'));
+    Route::get("/{id}", array('as' => 'blog.post','uses'=> 'BlogController@post'));
 
+});
 
 Route::controllers([
     'password' => 'Auth\PasswordController',

@@ -17,6 +17,8 @@ class CategoryController extends Controller{
     protected $model;
     public function __construct(){
         $this->model = new Category();
+        $this->setSingularKey('category');
+        $this->setPluralKey('categories');
     }
 
     public function index(){
@@ -29,12 +31,12 @@ class CategoryController extends Controller{
         if (isset($data['errors'])) {
             return view('categories.manage')->with('error',$data['errors']['message']);
         }
-        $category = $data['category'];
+        $category = $data[$this->getSingularKey()];
         $response = $this->model->getList();
         $data = json_decode($response->getContent(), true);
         if (isset($data['errors']))
             return Redirect::route('categories.manage')->with('error', $data['errors']['message']);
-        $categories = $data['categories'];
+        $categories = $data[$this->getPluralKey()];
         return view("category.edit")->with("category",$category)->with('categories',$categories);
     }
 //    add new category
@@ -43,7 +45,7 @@ class CategoryController extends Controller{
         $data = json_decode($response->getContent(), true);
         if (isset($data['errors']))
             return Redirect::route('404')->with('error', $data['errors']['message']);
-        $categories = $data['categories'];
+        $categories = $data[$this->getPluralKey()];
         return view("category.create")->with('categories', $categories);
     }
     public function save($id=null){
@@ -57,7 +59,7 @@ class CategoryController extends Controller{
             $response = $this->model->updateItem($input);
             $data = json_decode($response->getContent(),true);
             if (isset($data['errors'])) {
-                return Redirect::route('categories.edit',['id' => $id])->with('error', $data->errors->message);
+                return Redirect::route('categories.edit',['id' => $id])->with('error', $data['errors-']['message']);
             } else {
                 return Redirect::route('categories.edit',['id' => $id])->with('success',trans('message.edit_category_successfully'));
             }
@@ -66,7 +68,7 @@ class CategoryController extends Controller{
             $response = $this->model->store($input);
             $data = json_decode($response->getContent(),true);
             if (isset($data['errors'])) {
-                return Redirect::route('categories.create')->with('error',$data->errors->message)->withInput();
+                return Redirect::route('categories.create')->with('error',$data['errors-']['message'])->withInput();
             } else {
                 return Redirect::route('categories.create')->with('success',trans('message.create_category_successfully'));
             }
@@ -94,7 +96,7 @@ class CategoryController extends Controller{
         $response = $this->model->remove($id);
         $data = json_decode($response->getContent());
         if($data->errors)
-            return Redirect::route("categories.manage", ['id' => $id])->with('error',$data->errors->message);
+            return Redirect::route("categories.manage", ['id' => $id])->with('error',$data['errors-']['message']);
         else
             return Redirect::route("categories.manage")->with('success',trans('message.delete_category_successfully'));
 
@@ -107,7 +109,7 @@ class CategoryController extends Controller{
             $response = $this->model->remove($val);
             $data = json_decode($response->getContent());
             if($data->errors){
-                Session::flash('error', $data->errors->message);
+                Session::flash('error', $data['errors-']['message']);
             }
         }
         Session::flash('success',trans('message.delete_category_successfully'));

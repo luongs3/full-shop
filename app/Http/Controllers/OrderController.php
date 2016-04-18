@@ -127,7 +127,37 @@ class OrderController extends Controller{
     public function result(){
         return view('order.result');
     }
-//    edit one category - admin
+//    load address form
+    public function loadAddressForm($orderId){
+        $response = $this->model->show($orderId);
+        $data = json_decode($response->getContent(), true);
+        if (isset($data['errors']))
+            return Redirect::route('orders.manage')->with('error', $data['errors']['message']);
+        $order = $data['order'];
+        $districts = Common::getDistricts();
+        $provinces = Common::getProvinces();
+        $data = array('address'=>$order,
+            'provinces'=>$provinces,
+            'districts'=>$districts
+        );
+        return view('layout.address-form')->with($data);
+    }
+
+    public function updateAddressForm(){
+        $input = Input::all();
+        $data = json_decode($input['data'],true);
+        if(array_get($data,'_token'))
+            unset($data['_token']);
+        $response = $this->model->updateItem($data);
+        $data = json_decode($response->getContent(), true);
+        if (isset($data['errors']))
+            return Redirect::route('products.manage')->with('error', $data['errors']['message']);
+        $order = $data[$this->getSingularKey()];
+        empty($order['province']) or $order['province'] = Common::showProvince($order['province']);
+        empty($order['district']) or $order['district'] = Common::showDistrict($order['district']);
+        return view('layout.address-info')->with('order',$order);
+    }
+//    edit order - admin
     public function edit($id=null){
         $response = $this->model->show($id);
         $data = json_decode($response->getContent(),true);
