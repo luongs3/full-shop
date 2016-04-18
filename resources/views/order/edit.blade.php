@@ -4,8 +4,13 @@
         <div class="container">
             @include('layout.left-sidebar-admin')
             <div class="col-sm-10">
-                <h2 class="page-header">{{trans('label.edit_order')}}</h2>
                 @include('layout.result')
+                <div class="page-header">
+                    <h2>{{trans('label.review_order')}}</h2>
+                    <button type="submit" class="btn btn-default btn-lg btn_header">{{trans('label.save')}}</button>
+                    <button type="button" class="btn btn-default btn-lg btn_header" id="btn-delete">{{trans('label.delete')}}</button>
+                    <button type="button" class="btn btn-default btn-lg btn_header" id="btn-back">{{trans('label.back')}}</button>
+                </div>
                 <div class="row">
                     <!-- $order -->
                     <div class="col-lg-6">
@@ -53,15 +58,21 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="panel panel-default">
+                        <div class="panel panel-default" id="{{$order['id']}}">
                             <div class="panel-heading">
-                                <h3>Billing Address
-                                    <a title="Edit address" href="{{URL::route('orders.edit-address')}}">
+                                <h3>{{trans("label.billing_address")}}
+                                    <a class="edit-address-form" title="Edit Address" onclick="editAddress(this)">
                                         <i class="fa fa-edit right"></i>
                                     </a>
                                 </h3>
                             </div>
                             <div class="panel-body address-form">
+                                <div class="row">
+                                    <label class="col-lg-4 control-label">{{trans('label.guest')}}</label>
+                                    <div class="col-lg-8">
+                                        <span class="form-control-static">{{$order['name']}}</span>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <label class="col-lg-4 control-label">{{trans('label.address')}}</label>
                                     <div class="col-lg-8">
@@ -92,19 +103,19 @@
                                 <div class="row">
                                     <label class="col-lg-4 control-label">{{trans('label.sub_price')}}</label>
                                     <div class="col-lg-8">
-                                        <span class="form-control-static">{{$order['sub_price']}}</span>
+                                        <span class="form-control-static">{{number_format($order['sub_price'])}} đ</span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <label class="col-lg-4 control-label">{{trans('label.tax')}}</label>
                                     <div class="col-lg-8">
-                                        <span class="form-control-static">{{$order['tax']}}</span>
+                                        <span class="form-control-static">{{number_format($order['tax'])}} đ</span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <label class="col-lg-4 control-label">{{trans('label.total_price')}}</label>
                                     <div class="col-lg-8">
-                                        <span class="form-control-static">{{$order['total_price']}}</span>
+                                        <span class="form-control-static">{{number_format($order['total_price'])}} đ</span>
                                     </div>
                                 </div>
                             </div>
@@ -137,11 +148,11 @@
                                         <td class="cart_price">
                                             @if(isset($item['sale_price']))
                                                 <div class="sale_line">
-                                                    <p>{{$item['sale_price']}} đ</p>
+                                                    <p>{{number_format($item['sale_price'])}} đ</p>
                                                 </div>
-                                                <p class="sale_price">{{$item['price']}} đ</p>
+                                                <p class="sale_price">{{number_format($item['price'])}} đ</p>
                                             @else
-                                                <p>{{$item['price']}} đ</p>
+                                                <p>{{number_format($item['price'])}} đ</p>
                                             @endif
                                         </td>
                                         <td class="cart_quantity">
@@ -150,19 +161,62 @@
                                             </div>
                                         </td>
                                         <td class="cart_total">
-                                            <p class="cart_total_price">{{$item['sub_total']}}</p>
+                                            <p class="cart_total_price">{{number_format($item['sub_total'])}}</p>
                                         </td>
                                     </tr>
                                 @endforeach
                             @endif
-
                             </tbody>
                         </table>
                     </div></div>
             </div>
         </div>
     </section>
-    <script type="text/javascript">
+    <script>
+        $("#btn-delete").click(function(){
+            var response = confirm("Bạn có chắc chắn muốn xóa đơn hàng này không?");
+            if( response) {
+                window.location.replace("{{URL::route('orders.delete',['id' => $order['id']] )}}");
+            }
+        });
+        $("#btn-back").click(function(){
+            window.history.back();
+        });
+        function editAddress(element){
+            var panel = $(element).parents('.panel');
+            $.ajax({
+                type: "GET",
+                url: "/orders/load-address-form/"+panel.attr('id'),
+                success: function(result,status){
+                    panel.hide();
+                    panel.parent().html(result).show();
+                    panel.remove();
+                }
 
+            });
+        }
+        function updateAddress(element){
+            var panel = $(element).parents('.panel');
+            var form = panel.find('form');
+            var arr = {};
+            arr['id'] = panel.attr('id');
+            arr['name'] = form.find('input[name="name"]').val();
+            arr['email'] = form.find('input[name="email"]').val();
+            arr['address'] = form.find('input[name="address"]').val();
+            arr['phone_number'] = form.find('input[name="phone_number"]').val();
+            arr['province'] = form.find('select[name="province"]').val();
+            arr['district'] = form.find('select[name="district"]').val();
+            $.ajax({
+                type: "POST",
+                data: {data: JSON.stringify(arr),
+                    _token: "{{csrf_token()}}"},
+                url: "/orders/update-address-form",
+                success: function(result,status){
+                    panel.hide();
+                    panel.parent().html(result).show();
+                    panel.remove();
+                }
+            });
+        }
     </script>
 @endsection

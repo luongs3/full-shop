@@ -6,22 +6,27 @@
 				@include('layout.left-sidebar-admin')
 					<div class="shopper-informations col-sm-10">
 						<div class="row">
-							<h2 class="page-header">{{trans('label.edit_product')}}</h2>
 							@include('layout.result')
 							<form  class="form-horizontal" enctype="multipart/form-data" action="{{URL::route('products.save') . '/'.$product['id']}}" method="POST" role="form" >
+								<div class="page-header">
+									<h2>{{trans('label.edit_product')}}</h2>
+									<button type="submit" class="btn btn-default btn-lg btn_header">{{trans('label.save')}}</button>
+									<button type="button" class="btn btn-default btn-lg btn_header" id="btn-delete">{{trans('label.delete')}}</button>
+									<button type="button" class="btn btn-default btn-lg btn_header" id="btn-back">{{trans('label.back')}}</button>
+								</div>
 								<input type="hidden" name="_token" value="{{ csrf_token() }}">
 								<input type="hidden" name="id" value="{{$product['id'] or ''}}">
 								<div class="col-sm-8">
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="name">{{trans('label.name')}}</label>
+										<label class="control-label col-sm-2" for="name">{{trans('label.name')}}<span class="required"> *</span></label>
 										<div class="col-sm-9">
-											<input class="form-control" id="name" type="text" name="name" placeholder="Áo dài" value="{{$product['name'] or ''}}">
+											<input class="form-control" id="name" type="text" name="name" required placeholder="Áo dài" value="{{$product['name'] or ''}}">
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="sku">{{trans('label.sku')}}</label>
+										<label class="control-label col-sm-2" for="sku">{{trans('label.sku')}}<span class="required"> *</span></label>
 										<div class="col-sm-9">
-											<input class="form-control" id="sku" type="text" name="sku" placeholder="ao-dai-nhap-khau" value="{{$product['sku'] or ''}}">
+											<input class="form-control" id="sku" type="text" name="sku" required placeholder="ao-dai-nhap-khau" value="{{$product['sku'] or ''}}">
 										</div>
 									</div>
 									<div class="form-group">
@@ -47,9 +52,9 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="category">{{trans('label.category')}}</label>
+										<label class="control-label col-sm-2" for="category">{{trans('label.category')}} <span class="required"> *</span></label>
 										<div class="col-sm-9">
-											<select class="form-control" id="category" name="category_id">
+											<select class="form-control" id="category" required name="category_id">
 												<option value="">{{trans('label.category')}}</option>
 												@if(!empty($categories))
 													@foreach($categories as $key => $val)
@@ -119,5 +124,14 @@
 				readURL(this);
 			});
 		});
+		$("#btn-delete").click(function(){
+			var response = confirm("Bạn có chắc chắn muốn xóa sản phẩm này không?");
+			if( response) {
+				window.location.replace("{{URL::route('products.delete',['id' => $product['id']] )}}");
+			}
+		});
+		$("#btn-back").click(function(){
+			window.history.back();
+		})
 	</script>
 @endsection

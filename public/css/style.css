@@ -59,11 +59,19 @@ div.dropdown{
 .btn-delete{
     margin-top: 27px;
 }
+.page-header{
+    margin: 30px 0 20px 0;
+    padding: 0;
+    vertical-align: middle;
+    border-bottom: 4px solid #eee;
+}
+.page-header h2{
+    display: inline-block;
+    margin-bottom: 5px;
+}
 .btn_header{
-    position: relative;
-    top: -70px;
     float: right;
-    margin-left: 10px;
+    margin: 6px 0 0 10px;
 }
 .sale_price{
     text-decoration: line-through;
@@ -86,7 +94,7 @@ h3.page-header{
     opacity: 0.60;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
     z-index: 500;
-    /*display: none;*/
+    display: none;
 }
 .loading {
     position: fixed;
@@ -103,7 +111,7 @@ h3.page-header{
     opacity: 0.60;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
     z-index: 1000;
-    /*display: none;*/
+    display: none;
 }
 #btn_update_status, #btn_add, #btn_delete{
     margin-bottom: 10px;
@@ -179,4 +187,24 @@ h3.page-header{
     width: 50px;
     height: 50px;
     float: left;
+}
+.single-blog-post{
+    overflow: auto;
+}
+.btn-save{
+    float: right;
+}
+.required{
+    color: red;
+}
+.post-image{
+    border: 1px solid #F7F7F0;
+    width: 100%;
+    margin-bottom: 30px;
+}
+.edit-address-form:hover{
+    cursor: pointer;
+}
+#address-form{
+    display: none;
 }

@@ -25,6 +25,8 @@
 							<option value="SUCCESS" @if($val->status=='SUCCESS') selected @endif>{{trans('general.success')}}</option>
 							<option value="CANCEL" @if($val->status=='CANCEL') selected @endif>{{trans('general.cancel')}}</option>
 							<option value="PENDING" @if($val->status=='PENDING') selected @endif>{{trans('general.pending')}}</option>
+							<option value="PAID" @if($val->status=='PAID') selected @endif>{{trans('general.paid')}}</option>
+							<option value="REFUND" @if($val->status=='REFUND') selected @endif>{{trans('general.refund')}}</option>
 						</select>
 					</td>
 					<td>{{$val->created_at}}</td>

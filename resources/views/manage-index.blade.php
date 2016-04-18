@@ -9,7 +9,7 @@
 						@include('layout.result')
 						<form  class="form-horizontal" enctype="multipart/form-data" action="{{URL::route('manage.save')}}" method="POST" role="form" >
 							<h3 class="page-header">{{trans('label.home_page')}}</h3>
-							{{--<button type="button" class="btn btn-default btn-lg btn_header" id="btn_delete">{{trans('label.delete_banners')}}</button>--}}
+							<button type="button" class="btn btn-default btn-lg btn_header" id="btn-back">{{trans('label.back')}}</button>
 							<button type="button" class="btn btn-default btn-lg btn_header" id="btn_add">{{trans('label.add_new_banner')}}</button>
 							<button type="submit" class="btn btn-default btn-lg btn_header">{{trans('label.save')}}</button>
 							<ul class="nav nav-tabs">
@@ -114,5 +114,8 @@
 		$("div.tab-content").on('change',"input[type='file']",function(){
 			readURL(this);
 		});
+		$("#btn-back").click(function(){
+			window.history.back();
+		})
 	</script>
 @endsection

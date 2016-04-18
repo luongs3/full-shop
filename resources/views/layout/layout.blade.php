@@ -21,6 +21,8 @@
     {{--js--}}
     <script src="/js/jquery-2.2.0.min.js"></script>
     <link rel="stylesheet" href="/css/dataTables.bootstrap.min.css">
+    <script src="/js/summernote.js"></script>
+
     {{--style--}}
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/jquery.scrollUp.min.js"></script>

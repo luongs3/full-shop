@@ -503,24 +503,24 @@
 			</div>
 		</div>
 	</section>
-	<script>
-		$(document).ready(function(){
-			$('.add-to-cart').click(function(){
-				$.ajax({
-					type: "POST",
-					url: "/cart/add-item",
-					data: {product_id:  $(this).next().attr('id'),
-						quantity: 1,
-						_token: "{{ csrf_token() }}"},
-					success: function(data){
-						window.location="{{URL::route('cart')}}"
-					}
-				});
-			});
-			$('#advert_remove').click(function(){
-				$('#ajax-loading-mask').hide();
-				$('#ajax-loading').hide();
-			})
-		});
-	</script>
+	{{--<script>--}}
+		{{--$(document).ready(function(){--}}
+			{{--$('.add-to-cart').click(function(){--}}
+				{{--$.ajax({--}}
+					{{--type: "POST",--}}
+					{{--url: "/cart/add-item",--}}
+					{{--data: {product_id:  $(this).next().attr('id'),--}}
+						{{--quantity: 1,--}}
+						{{--_token: "{{ csrf_token() }}"},--}}
+					{{--success: function(data){--}}
+						{{--window.location="{{URL::route('cart')}}"--}}
+					{{--}--}}
+				{{--});--}}
+			{{--});--}}
+			{{--$('#advert_remove').click(function(){--}}
+				{{--$('#ajax-loading-mask').hide();--}}
+				{{--$('#ajax-loading').hide();--}}
+			{{--})--}}
+		{{--});--}}
+	{{--</script>--}}
 @endsection

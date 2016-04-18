@@ -17,7 +17,7 @@
 				<div class="row">
 					<div class="col-sm-5">
 						<div class="bill-to">
-							<p>Bill To</p>
+							<p>{{trans('billing_address')}}</p>
 							<div class="form-one">
 								<form method="post" action="{{URL::route('post-checkout')}}">
 									<input type="hidden" name="_token" value="{{ csrf_token() }}">

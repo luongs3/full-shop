@@ -12,15 +12,15 @@
 								<input type="hidden" name="_token" value="{{ csrf_token() }}">
 								<div class="col-sm-8">
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="name">{{trans('label.name')}}</label>
+										<label class="control-label col-sm-2" for="name">{{trans('label.name')}}<span class="required"> *</span></label>
 										<div class="col-sm-9">
-											<input class="form-control" id="name" type="text" name="name" placeholder="Áo dài" value="{{old('name')}}">
+											<input class="form-control" id="name" type="text" name="name" required placeholder="Áo dài" value="{{old('name')}}">
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="sku">{{trans('label.sku')}}</label>
+										<label class="control-label col-sm-2" for="sku">{{trans('label.sku')}}<span class="required"> *</span></label>
 										<div class="col-sm-9">
-											<input class="form-control" id="sku" type="text" name="sku" placeholder="ao-dai-nhap-khau" value="{{old('sku') }}">
+											<input class="form-control" id="sku" type="text" name="sku" required placeholder="ao-dai-nhap-khau" value="{{old('sku') }}">
 										</div>
 									</div>
 									<div class="form-group">
@@ -46,9 +46,9 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="category">{{trans('label.category')}}</label>
+										<label class="control-label col-sm-2" for="category">{{trans('label.category')}}<span class="required"> *</span></label>
 										<div class="col-sm-9">
-											<select class="form-control" id="category" name="category_id">
+											<select class="form-control" id="category" required name="category_id">
 												<option value="">{{trans('label.category')}}</option>
 												@if(!empty($categories))
 													@foreach($categories as $key => $val)
@@ -80,6 +80,7 @@
 								<div class="col-sm-4">
 									<div class="form-group" id="image-preview">
 										<label class="control-label" id="image-label" for="image">{{trans('label.image')}}</label>
+										<input class="hidden" id="image_hidden" name="image_hidden" value="">
 										<input class="form-control" id="image-upload" type="file"  name="image" value="{{old('image_id')}}">
 										<img class="img img-responsive" id="image_url" src="{{old('image_url')}}">
 									</div>

@@ -83,7 +83,7 @@
                             </li>
                             <li class="dropdown"><a href="#" class="active">Blog<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
-                                    <li><a href="blog" class="active">Blog List</a></li>
+                                    <li><a href="{{URL::route('blog')}}" class="active">Blog List</a></li>
                                     <li><a href="blog-single">Blog Single</a></li>
                                 </ul>
                             </li>
