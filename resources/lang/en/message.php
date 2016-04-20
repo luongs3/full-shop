@@ -27,6 +27,7 @@ return [
     'remove_item_successfully' => 'Xóa sản phẩm khỏi đơn hàng thành công',
     'update_these_order?' => 'Cập nhật những đơn hàng này không?',
     'update_order_status_successfully' => 'Cập nhật trạng thái đơn hàng thành công',
-    'test' => 'Test',
+    'choose_province_first' => 'Chọn Tỉnh/Thành phố trước',
+    'submit_order_successfully' => 'Gửi đơn hàng thành công!',
     'test' => 'Test',
 ];

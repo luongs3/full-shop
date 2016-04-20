@@ -90,13 +90,15 @@ class OrderController extends Controller{
             $price['sub_price'] = Session::get('sub_price');
             $price['total_price'] = Session::get('total_price');
         }
-//        $districts = Common::getDistricts();
+        $districts = Common::getDistricts();
         $provinces = Common::getProvinces();
         $data = array('price'=>$price,
             'items'=>$items,
             'provinces'=>$provinces,
-//            'districts'=>$districts
+            'districts'=>$districts,
+            'address' => ""
         );
+        empty($_COOKIE['address']) or $data['address'] = unserialize($_COOKIE['address']);
         return view('order.checkout')->with($data);
     }
 
@@ -109,6 +111,7 @@ class OrderController extends Controller{
         $input = Input::all();
         if(isset($input['_token']))
             unset($input['_token']);
+        setcookie('address',serialize($input),time() + (86400 * 365),url('checkout'));
         try {
             $input['sub_price'] = Session::pull('sub_price');
             $input['total_price'] = Session::pull('total_price');

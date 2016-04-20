@@ -4,8 +4,8 @@
 		<div class="container">
 			<div class="breadcrumbs">
 				<ol class="breadcrumb">
-					<li><a href="#">Home</a></li>
-					<li class="active">Check out</li>
+					<li><a href="#">{{trans('label.home')}}</a></li>
+					<li class="active">{{trans('label.check_out')}}</li>
 				</ol>
 			</div><!--/breadcrums-->
 
@@ -21,26 +21,35 @@
 							<div class="form-one">
 								<form method="post" action="{{URL::route('post-checkout')}}">
 									<input type="hidden" name="_token" value="{{ csrf_token() }}">
-									<input type="text" name="name" placeholder="{{trans('label.name')}}">
-									<input type="text" name="email" placeholder="{{trans('label.email')}}*" required>
-									<input type="text" name="address" placeholder="{{trans('label.address')}}*" required>
+									<input type="text" name="name" placeholder="{{trans('label.name')}}" value="{{$address['name'] or ''}}">
+									<input type="text" name="email" placeholder="{{trans('label.email')}}*" value="{{$address['email'] or ''}}" required>
+									<input type="text" name="address" placeholder="{{trans('label.address')}}*" value="{{$address['address'] or ''}}" required>
 									<select name="province" id="province">
 										<option value="">{{trans('label.choose_province')}}</option>
 										@if(isset($provinces))
 											@foreach($provinces as $val)
-												<option value="{{$val['id']}}">{{$val['name']}}</option>
+												@if(isset($address['province']))
+													<option value="{{$val['id']}}"  @if($val['id']==$address['province']) selected @endif>{{$val['name']}}</option>
+												@else
+													<option value="{{$val['id']}}">{{$val['name']}}</option>
+												@endif
+
 											@endforeach
 										@endif
 									</select>
 									<select name="district" id="district">
 										<option value="">{{trans('label.choose_district')}}</option>
-										{{--@if(isset($districts))--}}
-										{{--@foreach($districts as $val)--}}
-												{{--<option value="{{$val['id']}}">{{$val['name']}}</option>--}}
-											{{--@endforeach--}}
-										{{--@endif--}}
+										@if(isset($districts))
+											@foreach($districts as $val)
+												@if(isset($address['district']))
+													<option value="{{$val['id']}}" @if($val['id']==$address['district']) selected @endif>{{$val['name']}}</option>
+												@else
+													<option value="{{$val['id']}}">{{$val['name']}}</option>
+												@endif
+											@endforeach
+										@endif
 									</select>
-									<input type="text" name="phone_number" placeholder="{{trans('label.phone_number')}}">
+									<input type="text" name="phone_number" value="{{$address['address'] or ''}}" placeholder="{{trans('label.phone_number')}}">
 									<button type="submit" class="btn btn-warning">{{trans('label.post_order')}}</button>
 								</form>
 							</div>
@@ -106,10 +115,10 @@
 													<td>{{trans('label.sub_total')}}</td>
 													<td>{{$price["sub_price"]}}</td>
 												</tr>
-												<tr>
-													<td>Exo Tax</td>
-													<td>$2</td>
-												</tr>
+												{{--<tr>--}}
+													{{--<td>Exo Tax</td>--}}
+													{{--<td>$2</td>--}}
+												{{--</tr>--}}
 												<tr class="shipping-cost">
 													<td>Shipping Cost</td>
 													<td>Free</td>
@@ -142,7 +151,7 @@
 	</section> <!--/#cart_items-->
 	<script>
 		$('#district').click(function(){
-			if($(this).find('option').length==1){
+			if($("#province").find(":selected").val()==""){
 				alert("{{trans("message.choose_province_first")}}");
 				return false;
 			}

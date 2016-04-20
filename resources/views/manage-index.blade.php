@@ -8,10 +8,14 @@
 					<div class="row">
 						@include('layout.result')
 						<form  class="form-horizontal" enctype="multipart/form-data" action="{{URL::route('manage.save')}}" method="POST" role="form" >
-							<h3 class="page-header">{{trans('label.home_page')}}</h3>
-							<button type="button" class="btn btn-default btn-lg btn_header" id="btn-back">{{trans('label.back')}}</button>
-							<button type="button" class="btn btn-default btn-lg btn_header" id="btn_add">{{trans('label.add_new_banner')}}</button>
-							<button type="submit" class="btn btn-default btn-lg btn_header">{{trans('label.save')}}</button>
+							<div class="page-header">
+								<h2>{{trans('label.home_page')}}</h2>
+								<button type="submit" class="btn btn-default btn-lg btn_header">{{trans('label.save')}}</button>
+								<button type="button" class="btn btn-default btn-lg btn_header" id="btn_add">{{trans('label.add_new_banner')}}</button>
+								<button type="button" class="btn btn-default btn-lg btn_header" id="btn-back">{{trans('label.back')}}</button>
+
+							</div>
+
 							<ul class="nav nav-tabs">
 								<li class="active"><a data-toggle="tab" href="#banner">{{trans('label.banner')}}</a></li>
 								<li><a data-toggle="tab" href="#advertisement">{{trans('label.advertisement')}}</a></li>
