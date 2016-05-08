@@ -170,8 +170,7 @@ class BlogController extends Controller{
     }
 
     public function test(){
-        $posts = $this->model->index();
-        return $posts;
+        return view('test');
     }
 
 }

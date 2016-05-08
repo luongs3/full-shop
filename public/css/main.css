@@ -261,10 +261,10 @@ a#scrollUp i{
   height: 35px;
   outline: medium none;
   padding-left: 10px;
-  width: 370px;
+  width: 300px;
   background-image: url(../images/home/searchicon.png);
   background-repeat: no-repeat;
-  background-position: 350px;
+  background-position: 280px;
 }
 
 

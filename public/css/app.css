@@ -922,7 +922,7 @@ img {
   max-width: 100%;
   height: auto;
 }
-.img-rounded {
+.img-circle {
   border-radius: 6px;
 }
 .img-thumbnail {

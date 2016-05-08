@@ -1,0 +1,25 @@
+.container-fluid{
+    background-color: gray;
+    height: 700px;
+}
+#quote-area{
+    background-color: white;
+    width: 500px;
+    margin-top: 100px;
+    height: auto;
+    overflow: auto;
+    padding: 20px;
+    text-align: center;
+}
+.btn{
+    color: white;
+    background-color: gray;
+}
+.btn-social{
+    float: left;
+    margin-left: 20px;
+}
+.btn-new-quote{
+    float: right;
+    margin-right: 30px;
+}
