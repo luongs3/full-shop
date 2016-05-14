@@ -39,7 +39,7 @@
 							<div class="col-md-6 col-md-offset-4">
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="remember"> {{trans('label.remember_login')}}
+										<input type="checkbox" name="remember" checked> {{trans('label.remember_login')}}
 									</label>
 								</div>
 							</div>

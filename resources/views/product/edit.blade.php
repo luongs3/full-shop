@@ -7,7 +7,7 @@
 					<div class="shopper-informations col-sm-10">
 						<div class="row">
 							@include('layout.result')
-							<form  class="form-horizontal" enctype="multipart/form-data" action="{{URL::route('products.save') . '/'.$product['id']}}" method="POST" role="form" >
+							<form  class="form-horizontal" enctype="multipart/form-data" action="{{URL::route('products.save',['id' => $product['id']])}}" method="POST" role="form" >
 								<div class="page-header">
 									<h2>{{trans('label.edit_product')}}</h2>
 									<button type="submit" class="btn btn-default btn-lg btn_header">{{trans('label.save')}}</button>
@@ -105,7 +105,10 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.summernote').summernote({
-				height: 200                 // set editor height
+				height: 200,                 // set editor height
+				onImageUpload: function(files, editor, welEditable) {
+					sendFile(files[0], editor, welEditable);
+				}
 			});
 			function readURL(input) {
 

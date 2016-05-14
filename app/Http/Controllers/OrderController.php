@@ -89,7 +89,8 @@ class OrderController extends Controller{
             $items = Session::get('items');
             $price['sub_price'] = Session::get('sub_price');
             $price['total_price'] = Session::get('total_price');
-        }
+        }else
+            return Redirect::route('index');
         $districts = Common::getDistricts();
         $provinces = Common::getProvinces();
         $data = array('price'=>$price,

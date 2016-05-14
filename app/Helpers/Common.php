@@ -1,15 +1,23 @@
 <?php
 namespace App\Helpers;
+
 use App\Model\Province;
 use App\Model\District;
+use App\Model\File;
+use \App\Http\Controllers\Controller;
+
 /**
  * Created by PhpStorm.
  * User: luongs3
  * Date: 2/26/2016
  * Time: 9:26 PM
  */
-use \App\Http\Controllers\Controller;
+
 class Common extends Controller{
+    public static function uploadFile($file)
+    {
+        
+    }
     public static function getProvinces($filter=array()){
         $model = new Province();
         $response = $model->getAll($filter,['key'=>'id','aspect'=>'ASC']);

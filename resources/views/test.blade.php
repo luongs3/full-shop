@@ -19,85 +19,56 @@
 
 
 <script>
-    var currency = [
-        { name: 'ONE HUNDRED', val: 100.00},
-        { name: 'TWENTY', val: 20.00},
-        { name: 'TEN', val: 10.00},
-        { name: 'FIVE', val: 5.00},
-        { name: 'ONE', val: 1.00},
-        { name: 'QUARTER', val: 0.25},
-        { name: 'DIME', val: 0.10},
-        { name: 'NICKEL', val: 0.05},
-        { name: 'PENNY', val: 0.01}
-    ];
-    function checkCashRegister(price, cash, cid) {
-        // Here is your change, ma'am.
-        var sum = countMoney(cid);
-        var refund, paid = [], i, temp;
-        refund = cash - price;
-        if(refund>sum)
-            return "Insufficient Funds";
-        else if(refund==sum)
-            return "Closed";
-        cid = convert(cid);
-        for(i=cid.length-1;i>-1;i--){
-            temp = refund;
-                while(refund>=cid[i][0] && cid[i][1]>=cid[i][0]){
-                    refund = Math.round((refund - cid[i][0])*100)/100;
-                    cid[i][1] = cid[i][1] - cid[i][0];
+
+    function updateInventory(arr1, arr2) {
+        // All inventory must be accounted for or you're fired!
+        var i=0;
+        var result = arr1.slice();
+        arr2.map(function(value,index){
+            for(i=0;i<arr1.length;i++){
+                if(arr1[i][1]==value[1]){
+                    result[i][0] += value[0];
+                    break;
                 }
-            cid[i][1] = Math.round((temp - refund)*100)/100;
-            if(refund==0){
-                paid.push(cid[i]);
-                break;
             }
-            else if(temp > refund){
-                paid.push(cid[i]);
-            }
-        }
-        if(refund>0)             return "Insufficient Funds";
-                return revert(paid);
-    }
-    function countMoney(cid){
-        var sum=0;
-        cid.map(function(value,index){
-            sum+= value[1];
+            if(i==arr1.length)
+                result.push(value);
         });
-        return sum;
-    }
-    function convert(cid){
-        var new_cid=[];
-        cid.map(function(value,index){
-            new_cid.push([findCurrency(value[0]),value[1]]);
-        });
-        return new_cid;
-    }
-    function findCurrency(name){
-        for(var key in currency){
-            if(currency[key].name==name){
-                return currency[key].val;
+//        sort
+        result.sort(function(a,b){
+            var str1 = a[1];
+            var str2 = b[1];
+            var len;
+            if(str1.length>str2.length)
+                len = str2.length;
+            else len = str1.length;
+            for(var i=0;i<len;i++) {
+                if (str1.charCodeAt(i) > str2.charCodeAt(i))
+                    return 1;
+                else if (str1.charCodeAt(i) < str2.charCodeAt(i))
+                    return -1;
             }
-        }
-    }
-    function revert(cid){
-        var new_cid=[];
-        cid.map(function(value,index){
-            new_cid.push([findCurrency1(value[0]),value[1]]);
+            if(i==len)
+                return -1;
         });
-        return new_cid;
+
+        return result;
     }
+    // Example inventory lists
+    var curInv = [
+        [21, "Bowling Ball"],
+        [2, "Dirty Sock"],
+        [1, "Hair Pin"],
+        [5, "Microphone"]
+    ];
 
-    function findCurrency1(val){
-        for(var key in currency){
-            if(currency[key].val==val){
-                return currency[key].name;
-            }
-        }
-    }
-
-
-    console.log(checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1.00], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
-
+    var newInv = [
+        [2, "Hair Pin"],
+        [3, "Half-Eaten Apple"],
+        [67, "Bowling Ball"],
+        [7, "Toothpaste"]
+    ];
+    console.log(updateInventory([], [[2, "Hair Pin"], [3, "Half-Eaten Apple"], [67, "Bowling Ball"], [7, "Toothpaste"]]));
 
 </script>
 

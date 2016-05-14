@@ -15,6 +15,7 @@ use App\Model\FeaturedProduct as FeaturedProduct;
 use App\Model\File as File;
 use Input;
 use Redirect;
+use Request;
 
 class ProductController extends Controller{
     protected $model;
@@ -66,7 +67,14 @@ class ProductController extends Controller{
         return view("product.create",$title)->with("scripts", $scripts)->with('categories',$categories);
     }
 
-    public function save($id=null){
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Request $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function save($id=null,Request $request){
         $input = Input::all();
 //        check sku
         if (!$id) {
@@ -82,8 +90,8 @@ class ProductController extends Controller{
             $input['status'] = 0;
         if(array_get($input,'_token'))
             unset($input['_token']);
-        $input['name'] = trim(preg_replace('/[^(\x20-\x7F)]*/','', $input['name']));
-        $input['sku'] = trim(preg_replace('/[^(\x20-\x7F)]*/','', $input['sku']));
+        $input['name'] = trim($input['name']);
+        $input['sku'] = trim($input['sku']);
         $input['description'] = trim($input['description']);
         $input['attributes'] = serialize(array_get($input,'attributes'));
         if(isset($input['sale_price'])){

@@ -85,11 +85,11 @@
 											<td class="cart_price">
 												@if(isset($item['sale_price']))
 													<div class="sale_line">
-														<p>{{$item['sale_price']}} đ</p>
+														<p>{{number_format($item['sale_price'])}} đ</p>
 													</div>
-													<p class="sale_price">{{$item['price']}} đ</p>
+													<p class="sale_price">{{number_format($item['price'])}} đ</p>
 												@else
-													<p>{{$item['price']}} đ</p>
+													<p>{{number_format($item['price'])}} đ</p>
 												@endif
 											</td>
 											<td class="cart_quantity">
@@ -98,7 +98,7 @@
 												</div>
 											</td>
 											<td class="cart_total">
-												<p class="cart_total_price">{{$item['sub_total']}}</p>
+												<p class="cart_total_price">{{number_format($item['sub_total'])}}</p>
 											</td>
 											<td class="cart_delete">
 												<button class="cart_quantity_delete" id="{{$key}}" href=""><i class="fa fa-times"></i></button>
@@ -113,7 +113,7 @@
 											<table class="table table-condensed total-result">
 												<tr>
 													<td>{{trans('label.sub_total')}}</td>
-													<td>{{$price["sub_price"]}}</td>
+													<td>{{number_format($price["sub_price"])}}</td>
 												</tr>
 												{{--<tr>--}}
 													{{--<td>Exo Tax</td>--}}
@@ -125,7 +125,7 @@
 												</tr>
 												<tr>
 													<td>{{trans('label.total_price')}}</td>
-													<td><span>{{$price['total_price']}}</span></td>
+													<td><span>{{number_format($price['total_price'])}}</span></td>
 												</tr>
 											</table>
 										</td>
@@ -134,17 +134,7 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="payment-options">
-					<span>
-						<label><input type="checkbox"> Direct Bank Transfer</label>
-					</span>
-					<span>
-						<label><input type="checkbox"> Check Payment</label>
-					</span>
-					<span>
-						<label><input type="checkbox"> Paypal</label>
-					</span>
-						</div></div>
+						</div>
 				</div>
 			</div>
 		</div>

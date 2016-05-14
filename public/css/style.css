@@ -149,12 +149,13 @@ h3.page-header{
 }
 #result{
     position: absolute;
+    top: 40px;
     background-color: #fff;
     font-size: 17px;
     min-height: 40px;
     display: none;
     margin: 0 auto;
-    width: 370px;
+    width: 300px;
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;

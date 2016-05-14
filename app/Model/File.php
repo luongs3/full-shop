@@ -16,7 +16,6 @@ use Response;
 
 class File extends BaseModel{
     protected $table = "file";
-    public $timestamps = false;
     protected $fillable = ['name', 'type','url'];
 
 

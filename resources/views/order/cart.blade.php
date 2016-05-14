@@ -40,11 +40,11 @@
 								<td class="cart_price">
 									@if(isset($item['sale_price']))
 										<div class="sale_line">
-											<p>{{$item['sale_price']}} đ</p>
+											<p>{{number_format($item['sale_price'])}} đ</p>
 										</div>
-										<p class="sale_price">{{$item['price']}} đ</p>
+										<p class="sale_price">{{number_format($item['price'])}} đ</p>
 									@else
-										<p>{{$item['price']}} đ</p>
+										<p>{{number_format($item['price'])}} đ</p>
 									@endif
 								</td>
 								<td class="cart_quantity">
@@ -54,7 +54,7 @@
 									</div>
 								</td>
 								<td class="cart_total">
-									<p class="cart_total_price">{{$item['sub_total']}}</p>
+									<p class="cart_total_price">{{number_format($item['sub_total'])}}</p>
 								</td>
 								<td class="cart_delete">
 									<button class="cart_quantity_delete" id="{{$key}}" href=""><i class="fa fa-times"></i></button>
@@ -74,9 +74,9 @@
 				<div class="col-sm-6 col-sm-offset-6">
 					<div class="total_area">
 						<ul>
-							<li>{{trans('label.cart_sub_price')}}<span>{{$price['sub_price']}} đ</span></li>
+							<li>{{trans('label.cart_sub_price')}}<span>{{number_format($price['sub_price'])}} đ</span></li>
 							<li>{{trans('label.shipping_cost')}}<span>{{trans('label.free')}}</span></li>
-							<li>{{trans('label.total_price')}}<span>{{$price['total_price']}}</span></li>
+							<li>{{trans('label.total_price')}}<span>{{number_format($price['total_price'])}}</span></li>
 						</ul>
 						<a class="btn btn-default check_out" href="{{URL::route('get-checkout')}}">{{trans('label.check_out')}}</a>
 					</div>

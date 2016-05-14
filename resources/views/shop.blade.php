@@ -46,15 +46,11 @@
 												@else
 													<span class="price">{{number_format($val['price'])}} đ</span>
 												@endif
-												<p>{{$val['name']}}</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												<p class="product-name">{{$val['name']}}</p>
+												<button class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>{{trans('general.add_to_cart')}}</button>
+												<input type="hidden" name="product_id" id="{{$val['id']}}">
+												{{--<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>--}}
 											</div>
-										</div>
-										<div class="choose">
-											<ul class="nav nav-pills nav-justified">
-												<li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-												<li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
-											</ul>
 										</div>
 									</div>
 								</div>
@@ -73,4 +69,24 @@
 			</div>
 		</div>
 	</section>
+	<script>
+		$(document).ready(function(){
+			$('.add-to-cart').click(function(){
+				$.ajax({
+					type: "POST",
+					url: "/cart/add-item",
+					data: {product_id:  $(this).next().attr('id'),
+						quantity: 1,
+						_token: "{{ csrf_token() }}"},
+					success: function(data){
+						window.location="{{URL::route('cart')}}"
+					}
+				});
+			});
+			$('#advert_remove').click(function(){
+				$('#ajax-loading-mask').hide();
+				$('#ajax-loading').hide();
+			})
+		});
+	</script>
 @endsection
