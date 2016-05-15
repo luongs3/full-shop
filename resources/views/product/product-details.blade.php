@@ -51,12 +51,12 @@
 								<p>{{trans('label.sku')}}: {{$product['sku']}}</p>
 								@if(isset($product['sale_price']))
 									<div class="sale_line">
-										<span class="price">{{$product['sale_price']}} đ</span>
+										<span class="price">{{ number_format($product['sale_price']) }} đ</span>
 										<span class="label label-warning">-{{$product['ratio']}}%</span>
 									</div>
-									<span class="price sale_price">{{$product['price']}} đ</span>
+									<span class="price sale_price">{{number_format($product['price'])}} đ</span>
 								@else
-									<span class="price">{{$product['price']}} đ</span>
+									<span class="price">{{number_format($product['price'])}} đ</span>
 								@endif
 
 								<p><b>{{trans('label.status')}}:</b>
@@ -67,11 +67,23 @@
 									@endif
 									</p>
 								{{--<p><b>Condition:</b> New</p>--}}
-								<p><b>Brand:</b>{{$product['brand'] or 0}}</p>
+								{{--<p><b>Brand:</b>{{$product['brand'] or 0}}</p>--}}
 								<form class="form" action="{{URL::route('cart.add-item')}}" method="post">
 									<input type="hidden" name="_token" value="{{ csrf_token() }}">
 									<input type="hidden" name="product_id" value="{{$product['id']}}">
 									<span>
+										@if(!empty($product['option']))
+											@foreach($product['option'] as $key => $option)
+												<input type="hidden" name="{{ 'option-title-' . $key }}" value="{{ $option['title'] }}">
+												<select name="{{ 'option-' . $key }}" class="form-control option-value">
+													<option value="">-- {{ $option['title'] }} --</option>
+													@foreach($option['values'] as $key1 => $value)
+														<option value="{{ $value }}">{{ $value }}</option>
+													@endforeach
+												</select>
+											@endforeach
+										@endif
+										<input type="hidden" name="option-count" value="{{ $product['option-count'] or 0 }}">
 										<label>{{trans('label.quantity')}}:</label>
 										<input type="number" name="quantity" value="1"/>
 										<button type="submit" class="btn btn-default cart">
@@ -97,7 +109,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade active in" id="details" >
 								<h3>{{$product['name']}}</h3>
-								<p>{{$product['description'] or ''}}</p>
+								<p>{!! $product['description'] or '' !!}</p>
 							</div>
 							
 							<div class="tab-pane fade" id="companyprofile" >

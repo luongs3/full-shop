@@ -38,8 +38,15 @@ class OrderController extends Controller{
     public function addItem(){
         $input = array(
             'product_id' => Input::get('product_id'),
-            'quantity' => Input::get('quantity',1)
+            'quantity' => Input::get('quantity',1),
+            'option-count' => Input::get('option-count',0)
         );
+        if($input['option-count']>0){
+            for($i=0;$i<$input['option-count'];$i++){
+                $input['option'][$i]['title'] = Input::get('option-title-' . $i);
+                $input['option'][$i]['value'] = Input::get('option-' . $i);
+            }
+        }
         $product = new Product();
         $response = $product->show($input['product_id']);
         $data = json_decode($response->getContent(), true);

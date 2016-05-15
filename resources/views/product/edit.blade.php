@@ -82,6 +82,32 @@
 											<input class="form-control" type="number" name="quantity" placeholder="Số lượng" value="{{$product['quantity'] or ''}}">
 										</div>
 									</div>
+										<div class="form-group">
+											<input type="hidden" id="option-count" name="option-count" value="{{ $product['option-count'] or 0 }}">
+											<label class="control-label col-sm-2" for="title-0">{{trans('label.option')}}</label>
+											<div class="col-sm-9" id="option-wrap">
+												@if(!empty($product['option']))
+													@foreach($product['option'] as $key => $option)
+														<input class="form-control option-title" type="text" name="{{ 'title-' . $key }}" id="{{ 'title-' . $key }}" placeholder="{{trans('label.option_title')}}" value="{{ $option['tilte'] or '' }}">
+														<input class="form-control col-sm-10 option-value" type="text" name="{{ 'value-' . $key }}" id="{{ 'value-' . $key }}" placeholder="{{ trans('label.option_value') }}" value="{{ $option['value'] or '' }}">
+														<button class="btn btn-warning option-remove" id="{{ 'remove-' . $key }}">{{ trans('label.remove_option') }}</button>
+													@endforeach
+												@else
+													<input class="form-control option-title" type="text" name="title-0" id="title-0" placeholder="{{trans('label.option_title')}}" value="{{old('title-0')}}">
+													<input class="form-control col-sm-10 option-value" type="text" name="value-0" id="value-0" placeholder="{{ trans('label.option_value') }}" value="{{ old('value-0') }}">
+													<button class="btn btn-warning option-remove" id="remove-0">{{ trans('label.remove_option') }}</button>
+												@endif
+											</div>
+										</div>
+									<div class="form-group hidden">
+										<label class="control-label col-sm-2" for="title-0">{{trans('label.option')}}</label>
+										<div class="col-sm-9">
+											<input class="form-control option-title" type="text" placeholder="{{trans('label.option_title')}}" value="{{old('title-0')}}">
+											<input class="form-control col-sm-10 option-value" type="text" placeholder="{{ trans('label.option_value') }}" value="{{ old('value-0') }}">
+											<button class="btn btn-warning option-remove">{{ trans('label.remove_option') }}</button>
+										</div>
+									</div>
+									<button class="btn btn-default new-option">{{ trans('label.new_option') }}</button>
 								</div>
 								<div class="col-sm-4">
 									<div class="form-group" id="image-preview">
@@ -135,6 +161,30 @@
 		});
 		$("#btn-back").click(function(){
 			window.history.back();
-		})
+		});
+		$("#value-0").keydown(function(){
+			$("#option-count").val(1);
+		});
+		$('.new-option').on('click',function(event){
+			parent = $(this).prev();
+			newOption = parent.find('.col-sm-9');
+			parent = parent.prev().find('.col-sm-9');
+			no = parent.find('.option-title').length;
+			newOption.find('.option-title').attr({name: 'title-' + no, id: 'title-' + no});
+			newOption.find('.option-value').attr({name: 'value-' + no, id: 'value-' + no});
+			newOption.find('.option-remove').attr({id: 'remove-' + no});
+			parent.append(newOption.children().clone());
+			event.preventDefault();
+		});
+		$("#option-wrap").on('click','.option-remove',function(event){
+			event.preventDefault();
+			no = $(this).attr('id').split('-')[1];
+			var response = confirm("{{ trans('message.delete_this_option') }}");
+			if( response){
+				$("#title-"+no).remove();
+				$("#value-"+no).remove();
+				$("#remove-"+no).remove();
+			}
+		});
 	</script>
 @endsection

@@ -209,3 +209,15 @@ h3.page-header{
 #address-form{
     display: none;
 }
+.option-value{
+    margin-bottom: 20px;
+}
+.features_items .col-sm-4 img{
+    max-width: 253px;
+    max-height: 235px;
+}
+.product-name{
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}

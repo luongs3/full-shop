@@ -15,9 +15,9 @@ use Response;
 
 
 class File extends BaseModel{
+
     protected $table = "file";
     protected $fillable = ['name', 'type','url'];
-
 
     public function __construct($attributes = array()){
         parent::__construct($attributes);

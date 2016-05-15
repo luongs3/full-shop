@@ -48,9 +48,6 @@ Route::group(array( 'prefix' => 'products'),function(){
     Route::post("massive-delete-fp", array('as' => 'products.massive-delete-fp','middleware' => 'role', 'uses' => 'ProductController@massiveDeleteFeaturedProducts'));
 //  product category
     Route::get("category/{id}/{order_by?}/{direction?}", array('as' => 'products.category', 'uses' => 'ProductController@getCategoryProducts'));
-//    test
-    Route::get("test-view", array('as' => 'products.test-view','uses'=> 'ProductController@testView'));
-    Route::get("test", array('as' => 'products.test','uses'=> 'ProductController@test'));
 //  product detail
     Route::get("{sku}", array('as' => 'products.detail', 'uses' => 'ProductController@productDetail'));
 });
@@ -63,7 +60,6 @@ Route::group(array( 'prefix' => 'categories'),function(){
     Route::post("save/{id?}", array('as' => 'categories.save','middleware' => 'role','uses'=> 'CategoryController@save'));
     Route::get("delete/{id}", array('as' => 'categories.delete','middleware' => 'role', 'uses' => 'CategoryController@delete'));
     Route::post("massive-delete", array('as' => 'categories.massive-delete','middleware' => 'role', 'uses' => 'CategoryController@massiveDelete'));
-    Route::get("abc", array('as' => 'categories.abc','uses'=> 'CategoryController@abc'));
     Route::get("test-view", array('as' => 'categories.test-view','uses'=> 'CategoryController@testView'));
     Route::get("test", array('as' => 'categories.test','uses'=> 'CategoryController@test'));
 });
@@ -80,9 +76,6 @@ Route::group(array( 'prefix' => 'orders'),function(){
     Route::post("save/{id?}", array('as' => 'orders.save','middleware' => 'role','uses'=> 'OrderController@save'));
     Route::get("delete/{id}", array('as' => 'orders.delete','middleware' => 'role', 'uses' => 'OrderController@delete'));
     Route::post("massive-delete", array('as' => 'orders.massive-delete','middleware' => 'role', 'uses' => 'OrderController@massiveDelete'));
-    Route::get("abc", array('as' => 'orders.abc','uses'=> 'OrderController@abc'));
-    Route::get("test-view", array('as' => 'orders.test-view','uses'=> 'OrderController@testView'));
-    Route::get("test", array('as' => 'orders.test','uses'=> 'OrderController@test'));
 });
 //cart
 Route::group(array( 'prefix' => 'cart'),function(){
@@ -106,9 +99,6 @@ Route::group(array( 'prefix' => 'users'),function(){
     Route::post("save/{id?}", array('as' => 'users.save','uses'=> 'UserController@save'));
     Route::get("delete/{id}", array('as' => 'users.delete', 'uses' => 'UserController@delete'));
     Route::post("massive-delete", array('as' => 'users.massive-delete', 'uses' => 'UserController@massiveDelete'));
-    Route::get("abc", array('as' => 'users.abc','uses'=> 'UserController@abc'));
-    Route::get("test-view", array('as' => 'users.test-view','uses'=> 'UserController@testView'));
-    Route::post("test", array('as' => 'users.test','uses'=> 'UserController@test'));
 });
 // Authentication routes...
 Route::group(array( 'prefix' => 'auth'),function(){
@@ -129,9 +119,6 @@ Route::group(array( 'prefix' => 'blog'),function(){
     Route::post("save/{id?}", array('as' => 'blog.save','middleware' => 'role','uses'=> 'BlogController@save'));
     Route::get("delete/{id}", array('as' => 'blog.delete','middleware' => 'role', 'uses' => 'BlogController@delete'));
     Route::post("massive-delete", array('as' => 'blog.massive-delete','middleware' => 'role', 'uses' => 'BlogController@massiveDelete'));
-    Route::get("abc", array('as' => 'blog.abc','uses'=> 'BlogController@abc'));
-    Route::get("test-view", array('as' => 'blog.test-view','uses'=> 'BlogController@testView'));
-    Route::get("test", array('as' => 'blog.test','uses'=> 'BlogController@test'));
     Route::get("/{id}", array('as' => 'blog.post','uses'=> 'BlogController@post'));
 
 });

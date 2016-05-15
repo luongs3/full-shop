@@ -144,6 +144,11 @@
                                         <td class="cart_description">
                                             <h4><a href="">{{$item['name']}}</a></h4>
                                             <p>{{trans('label.sku')}}: {{$item['sku']}}</p>
+                                            @if(!empty($item['option']))
+                                                @foreach($item['option'] as $option)
+                                                    <p>{{ $option['title'] . ": " . $option['value'] }}</p>
+                                                @endforeach
+                                            @endif
                                         </td>
                                         <td class="cart_price">
                                             @if(isset($item['sale_price']))
