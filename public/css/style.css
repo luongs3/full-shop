@@ -1,88 +1,109 @@
-th.sorting{
-    padding: 4px!important;
+th.sorting {
+    padding: 4px !important;
 }
-th span.glyphicon-sort,.glyphicon-chevron-up,.glyphicon-chevron-down{
-    float: right!important;
+
+th span.glyphicon-sort, .glyphicon-chevron-up, .glyphicon-chevron-down {
+    float: right !important;
 }
-.sort{
+
+.sort {
     padding: 1px;
 }
-tr td{
+
+tr td {
     text-align: center;
     vertical-align: middle;
 }
-label{
+
+label {
     float: left;
     text-align: left;
 }
-.left-sidebar h4.left-menu a{
+
+.left-sidebar h4.left-menu a {
     margin-left: 40px;
 }
-.left-sidebar h2 a{
+
+.left-sidebar h2 a {
     margin-bottom: 10px;
     margin-top: 40px;
     color: #FE980F;
 }
+
 /*.btn{*/
-    /*float: right!important;*/
+/*float: right!important;*/
 /*}*/
-#image_url{
+#image_url {
     margin: 10px;
 }
-.pagination{
+
+.pagination {
     /*position: relative;*/
     /*top: 0px;*/
     /*left: 0px;*/
 }
-.btn_submit{
+
+.btn_submit {
     float: right;
     margin: 20px 15px 0 0;
 }
-table thead tr th{
+
+table thead tr th {
     text-align: center;
 }
-.sort-category{
+
+.sort-category {
     width: 100%;
     height: 50px;
     line-height: 50px;
     margin: 0 15px 5px 15px;
 }
-div.dropdown{
+
+div.dropdown {
     height: 50px;
 }
-.btn.btn-primary{
+
+.btn.btn-primary {
     float: left !important;
     border-radius: 5px;
-    height: 40px!important;
+    height: 40px !important;
     margin-top: 5px;
 }
-.btn-delete{
+
+.btn-delete {
     margin-top: 27px;
 }
-.page-header{
+
+.page-header {
     margin: 30px 0 20px 0;
     padding: 0;
     vertical-align: middle;
     border-bottom: 4px solid #eee;
 }
-.page-header h2{
+
+.page-header h2 {
     display: inline-block;
     margin-bottom: 5px;
 }
-.btn_header{
+
+.btn_header {
     float: right;
     margin: 6px 0 0 10px;
 }
-.sale_price{
+
+.sale_price {
     text-decoration: line-through;
 }
-h3.page-header{
+
+h3.page-header {
     border-bottom: solid 4px #eee;
 }
-.cart_product a img{
+
+.cart_product a img {
     height: 110px;
     width: 110px;
 }
+
 .loading-mask {
     top: 0;
     left: 0;
@@ -96,6 +117,7 @@ h3.page-header{
     z-index: 500;
     display: none;
 }
+
 .loading {
     position: fixed;
     top: 200px;
@@ -113,41 +135,50 @@ h3.page-header{
     z-index: 1000;
     display: none;
 }
-#btn_update_status, #btn_add, #btn_delete{
+
+#btn_update_status, #btn_add, #btn_delete {
     margin-bottom: 10px;
 }
-.panel-heading h3{
+
+.panel-heading h3 {
     font-size: 16px;
     margin: 5px 0 5px 0;
 }
-.right{
+
+.right {
     float: right;
 }
-#advertisement img{
+
+#advertisement img {
     margin-top: 10px;
 }
-#advert_image{
+
+#advert_image {
     max-width: 500px;
     max-height: 500px;
     position: fixed;
     top: 100px;
     left: 400px;
 }
-#advert_remove{
+
+#advert_remove {
     position: fixed;
     max-height: 50px;
     max-width: 50px;
     top: 100px;
     right: 387px;
 }
-#advert_remove:hover{
+
+#advert_remove:hover {
     cursor: pointer;
 }
-.advert_mask{
+
+.advert_mask {
     background: #000000;
     opacity: 0.9;
 }
-#result{
+
+#result {
     position: absolute;
     top: 40px;
     background-color: #fff;
@@ -163,61 +194,89 @@ h3.page-header{
     border: 1px solid #DDD;
     z-index: 1001;
 }
-#search{
+
+#search {
     float: left;
 }
-.line{
+
+.line {
     padding: 0 0 0 10px;
     border-bottom: solid 1px #CBCBF1;
 }
-.line a{
+
+.line a {
     color: #000;
 }
-.line a:hover{
+
+.line a:hover {
     color: #FE980F;
 }
 
-#result_sku{
+#result_sku {
     color: #696763;
     font-family: 'Roboto', sans-serif;
     margin: 0 0 5px 5px;
     font-size: 14px;
 }
-#result_image{
+
+#result_image {
     padding: 5px;
     width: 50px;
     height: 50px;
     float: left;
 }
-.single-blog-post{
+
+.single-blog-post {
     overflow: auto;
 }
-.btn-save{
+
+.btn-save {
     float: right;
 }
-.required{
+
+.required {
     color: red;
 }
-.post-image{
+
+.post-image {
     border: 1px solid #F7F7F0;
     width: 100%;
     margin-bottom: 30px;
 }
-.edit-address-form:hover{
+
+.edit-address-form:hover {
     cursor: pointer;
 }
-#address-form{
+
+#address-form {
     display: none;
 }
-.option-value{
+
+.option-value {
     margin-bottom: 20px;
 }
-.features_items .col-sm-4 img{
+
+.features_items .col-sm-4 img {
     max-width: 253px;
     max-height: 235px;
 }
-.product-name{
+
+.product-name {
     overflow: hidden;
     -ms-text-overflow: ellipsis;
     text-overflow: ellipsis;
+}
+
+.product-tab-img {
+    width: 182px;
+    height: 198px;
+}
+
+.product-tab-name {
+    height: 40px;
+}
+
+.product-tab-price {
+    height: 50px;
+    margin-top: 10px;
 }

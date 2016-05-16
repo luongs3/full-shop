@@ -118,4 +118,29 @@ class Product extends BaseModel
         }
     }
 
+    public function getLimit($filter = array(),$attributes = [],$order=['key'=>"id",'aspect' => 'DESC'],$limit=4)
+    {
+        $model_class = $this->getModelClass();
+        try {
+            $model = $model_class::where($filter)->orderBy($order['key'],$order['aspect'])->take($limit)->get($attributes);
+            if (!$model)
+                return Response::json(['errors' => ['message' => trans('message.'.$this->getSingularKey(). '_not_exist')]]);
+
+            foreach ($model as $key => $product) {
+                if (!empty($product->image_id)) {
+                    $file = new File();
+                    $response = $file->show($product->image_id);
+                    $data = json_decode($response->getContent(), 'true');
+                    if (isset($data['errors']))
+                        return Response::json(['errors' => ['message' => $data['errors']['message']]]);
+                    $file = $data['file'];
+                    $product->image_url = $file['url'];
+                }
+            }
+            return Response::json([$this->getPluralKey() => $model]);
+        } catch (Exception $e) {
+            return Response::json(['errors' => ['code' => $e->getCode(), 'message' => $e->getMessage()]]);
+        }
+    }
+
 }

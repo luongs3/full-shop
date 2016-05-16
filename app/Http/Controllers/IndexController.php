@@ -32,7 +32,7 @@ class IndexController extends Controller {
         $response = $file->getAll($attributes);
         $data = json_decode($response->getContent(), true);
         if (isset($data['errors']))
-            return Redirect::route('')->with('error', $data['errors']['message']);
+            return Redirect::route('404')->with('error', $data['errors']['message']);
         $files = $data['files'];
 //        load featured products
         $filter=array(
@@ -49,22 +49,41 @@ class IndexController extends Controller {
         $response = $model->getList();
         $data = json_decode($response->getContent(), true);
         if (isset($data['errors']))
-            return Redirect::route('categories.manage')->with('error', $data['errors']['message']);
+            return Redirect::route('404')->with('error', $data['errors']['message']);
         $categories = $data['categories'];
+        $response = $model->getAll();
+        $data = json_decode($response->getContent(), true);
+        if (isset($data['errors']))
+            return Redirect::route('404')->with('error', $data['errors']['message']);
+        $categoryTab = $data['categories'];
+        $filter = array(
+            'limit' => 4,
+            'order-by' => 'id',
+            'direction' => 'DESC'
+        );
+        $model = new Product();
+        $categoryProducts = $categoryNames = [];
+        foreach ($categoryTab as $key => $item) {
+            $response = $model->getLimit(['category_id' => $item['id']],['id','name','image_id', 'ratio', 'price','sale_price','sku']);
+            $data = json_decode($response->getContent(), true);
+            $categoryProducts[$key] = $data['products'];
+            $categoryNames[$key] = $item['name'];
+        }
 //        load advert
         $model = new File();
         $response = $model->getAll(['type'=>'ADVERTISEMENT']);
         $data = json_decode($response->getContent(), true);
         if (isset($data['errors']))
-            return Redirect::route('categories.manage')->with('error', $data['errors']['message']);
+            return Redirect::route('404')->with('error', $data['errors']['message']);
         $ad = isset($data['files'][0])?$data['files'][0]:null;
         $withData = array(
             'files' => $files,
             'featured_products' => $featured_products,
             'categories' => $categories,
+            'categoryProducts' => $categoryProducts,
+            'categoryNames' => $categoryNames,
             'ad' => $ad
         );
-//        page title
         return view("index")->with($withData);
     }
     public function getErrorPage(){

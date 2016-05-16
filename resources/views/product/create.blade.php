@@ -32,11 +32,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="status">{{trans('label.status')}}</label>
                                         <div class="col-sm-9">
-                                            @if(old('status'))
-                                                <input class="form-control" type="checkbox" id="status" name="status" checked>
-                                            @else
-                                                <input class="form-control" type="checkbox" id="status" name="status">
-                                            @endif
+                                            <input class="form-control" type="checkbox" id="status" name="status" checked>
                                         </div>
                                     </div>
                                     <div class="form-group">

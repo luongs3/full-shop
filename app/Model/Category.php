@@ -42,4 +42,16 @@ class Category extends BaseModel{
         }
         return Response::json(['categories' => $categories]);
     }
+    public function getAll($filter = array(),$order=['key'=>"id",'aspect' => 'DESC'])
+    {
+        $model_class = $this->getModelClass();
+        try {
+            $model = $model_class::where($filter)->orderBy($order['key'],$order['aspect'])->get();
+            if (!$model)
+                return Response::json(['errors' => ['message' => trans('message.'.$this->getSingularKey(). '_not_exist')]]);
+            return Response::json([$this->getPluralKey() => $model]);
+        } catch (Exception $e) {
+            return Response::json(['errors' => ['code' => $e->getCode(), 'message' => $e->getMessage()]]);
+        }
+    }
 }
