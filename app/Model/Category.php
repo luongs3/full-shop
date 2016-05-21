@@ -54,4 +54,20 @@ class Category extends BaseModel{
             return Response::json(['errors' => ['code' => $e->getCode(), 'message' => $e->getMessage()]]);
         }
     }
+    public function limitCategories($options = [])
+    {
+        $filter = isset($options['filter']) ? $options['filter'] : self::FILTER;
+        $attributes = isset($options['attributes']) ? $options['attributes'] : self::ATTRIBUTES;
+        $limit = isset($options['limit']) ? $options['limit'] : self::LIMIT;
+        $order = isset($options['order']) ? $options['order'] : self::ORDER_BY;
+        $model_class = $this->getModelClass();
+        try {
+            $model = $model_class::where($filter)->orderBy($order['key'], $order['aspect'])->take($limit)->get($attributes);
+            if (!$model)
+                return Response::json(['errors' => ['message' => trans('message.'.$this->getSingularKey(). '_not_exist')]]);
+            return Response::json([$this->getPluralKey() => $model]);
+        } catch (Exception $e) {
+            return Response::json(['errors' => ['code' => $e->getCode(), 'message' => $e->getMessage()]]);
+        }
+    }
 }

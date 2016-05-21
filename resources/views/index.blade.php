@@ -28,7 +28,6 @@
 								</div>
 								<div class="col-sm-6">
 									<img src="{{$files[0]['url'] or ''}}" class="girl img-responsive" alt="" />
-									{{--<img src="/images/home/pricing.png"  class="pricing" alt="" />--}}
 								</div>
 							</div>
 							<div class="item">
@@ -58,7 +57,7 @@
 							</div>
 
 						</div>
-						
+
 						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
 							<i class="fa fa-angle-left"></i>
 						</a>
@@ -66,12 +65,12 @@
 							<i class="fa fa-angle-right"></i>
 						</a>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
 	</section><!--/slider-->
-	
+
 	<section>
 		<div class="container">
 			<div class="row">

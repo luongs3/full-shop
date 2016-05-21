@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-sm-2">
                     <div class="logo pull-left">
-                        <a href="{{URL::route('index')}}"><img src="/images/home/logo.png" alt="" /></a>
+                        <a href="{{URL::route('index')}}"><img src="{{asset('/images/home/logo.png')}}" alt="" /></a>
                     </div>
                 </div>
                 <div class="col-sm-10">

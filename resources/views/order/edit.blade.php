@@ -139,7 +139,7 @@
                                 @foreach($order['items'] as $key => $item)
                                     <tr>
                                         <td class="cart_product">
-                                            <a href=""><img src="{{$item['image_url'] or ''}}" alt=""></a>
+                                            <a href=""><img src="{{asset($item['image_url'] or '/images/images.jpg')}}" alt=""></a>
                                         </td>
                                         <td class="cart_description">
                                             <h4><a href="">{{$item['name']}}</a></h4>

@@ -32,7 +32,7 @@
 														<label class="control-label" for="{{'id_'.$val["id"]}}">{{$val["name"]}}</label>
 														<input class="form-control" id="{{'hidden_' .$val["id"]}}" type="hidden" name='{{"hidden_" . $key}}' value="{{$val["id"]}}">
 														<input class="form-control" id="{{'id_'.$val["id"]}}" type="file"  name="{{$key}}" >
-														<img class="img img-responsive image_url" id='{{"url_".$val["id"]}}' src="{{$val["url"]}}">
+														<img class="img img-responsive image_url" id='{{"url_".$val["id"]}}' src="{{asset($val["url"])}}">
 													</div>
 												</div>
 												<div class="col-sm-4">
@@ -58,7 +58,7 @@
 												<label class="control-label" for="id_advert">{{$ad["name"] or trans('label.advertisement')}}</label>
 												<input class="form-control" id="hidden_advert" type="hidden" name='hidden_advert' value="{{$ad["id"] or ''}}">
 												<input class="form-control" id="id_advert" type="file"  name="advertisement" >
-												<img class="img img-responsive image_url" id='url_advert' src="{{$ad["url"] or ''}}">
+												<img class="img img-responsive image_url" id='url_advert' src="{{asset($ad["url"]) or ''}}">
 											</div>
 										</div>
 										@if(isset($ad))
@@ -83,7 +83,7 @@
 					'<label class="control-label" for="">New Banner</label>'+
 					'<input class="form-control" id="" type="hidden" name="" value="">'+
 					'<input class="form-control" id="" type="file"  name="" >'+
-					'<img class="img img-responsive image_url" id="" src="/images/home/girl2.jpg">'+
+					'<img class="img img-responsive image_url" id="" src="{{asset('/images/home/girl2.jpg')}}">'+
 					'</div>';
 			$('#btn_add').click(function(){
 				$('div.col-sm-8').prepend(formGroup);

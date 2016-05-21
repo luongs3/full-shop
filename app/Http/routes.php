@@ -119,6 +119,9 @@ Route::group(array( 'prefix' => 'blog'),function(){
     Route::post("save/{id?}", array('as' => 'blog.save','middleware' => 'role','uses'=> 'BlogController@save'));
     Route::get("delete/{id}", array('as' => 'blog.delete','middleware' => 'role', 'uses' => 'BlogController@delete'));
     Route::post("massive-delete", array('as' => 'blog.massive-delete','middleware' => 'role', 'uses' => 'BlogController@massiveDelete'));
+    Route::get("abc", array('as' => 'blog.abc','uses'=> 'BlogController@abc'));
+    Route::get("test-view", array('as' => 'blog.test-view','uses'=> 'BlogController@testView'));
+    Route::get("test", array('as' => 'blog.test','uses'=> 'BlogController@test'));
     Route::get("/{id}", array('as' => 'blog.post','uses'=> 'BlogController@post'));
 
 });

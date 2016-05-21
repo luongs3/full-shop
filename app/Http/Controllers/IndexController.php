@@ -51,7 +51,7 @@ class IndexController extends Controller {
         if (isset($data['errors']))
             return Redirect::route('404')->with('error', $data['errors']['message']);
         $categories = $data['categories'];
-        $response = $model->getAll();
+        $response = $model->limitCategories(['limit' => 5]);
         $data = json_decode($response->getContent(), true);
         if (isset($data['errors']))
             return Redirect::route('404')->with('error', $data['errors']['message']);

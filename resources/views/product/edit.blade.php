@@ -114,7 +114,7 @@
 										<label class="control-label" id="image-label" for="image">{{trans('label.image')}}</label>
 										<input class="hidden" id="image_hidden" name="image_hidden" value="{{$product['image_id'] or ''}}">
 										<input class="form-control" id="image-upload" type="file"  name="image">
-										<img class="img img-responsive" id="image_url" src="{{$product['image_url'] or ''}}">
+										<img class="img img-responsive" id="image_url" src="{{$product['image_url'] or asset('/images/images.jpg') }}">
 									</div>
 									<div class="form-group">
 										<div class="col-sm-9">

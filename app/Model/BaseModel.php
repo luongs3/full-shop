@@ -15,9 +15,12 @@ use Response;
 
 abstract class BaseModel extends Model
 {
-//    protected $table;
-//    public $timestamps;
-//    protected $fillable;
+    const FILTER = [];
+    const ATTRIBUTES = null;
+    const ORDER_BY = ['key'=>"id",'aspect' => 'DESC'];
+    const LIMIT = 10;
+    const OFFSET = 0;
+
     protected $model_class;
     protected $singular_key;
     protected $plural_key;

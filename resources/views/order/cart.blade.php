@@ -2,7 +2,7 @@
 @section("content")
 	<div id="ajax-loading-mask" class="loading-mask"></div>
 	<div id="ajax-loading" class="loading">
-		<img src="/images/shop/loading.gif" alt="general.loading..." />
+		<img src="{{asset('/images/shop/loading.gif')}}" alt="general.loading..." />
 		<p>Please wait</p>
 	</div>
 	<section id="cart_items">
@@ -31,7 +31,7 @@
 						@foreach($items as $key => $item)
 							<tr>
 								<td class="cart_product">
-									<a href=""><img src="{{$item['image_url'] or ''}}" alt=""></a>
+									<a href=""><img src="{{asset($item['image_url']) or ''}}" alt=""></a>
 								</td>
 								<td class="cart_description">
 									<h4><a href="">{{$item['name']}}</a></h4>

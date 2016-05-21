@@ -33,7 +33,7 @@
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<div class="logo pull-left">
-					<a href="{{URL::route('/')}}"><img src="/images/home/logo.png" alt="" /></a>
+					<a href="{{URL::route('/')}}"><img src="{{asset('/images/home/logo.png')}}" alt="" /></a>
 				</div>
 				{{--<ul class="nav navbar-nav">--}}
 					{{--<li><a href="{{ url('/') }}">Home</a></li>--}}
@@ -60,8 +60,8 @@
 
 	<!-- Scripts -->
 	{{--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>--}}
-	<script src="/js/jquery.min.js"></script>
+	<script src="{{asset('/js/jquery.min.js')}}"></script>
 	{{--<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>--}}
-	<script src="/js/bootstrap.min.js"></script>
+	<script src="{{asset('/js/bootstrap.min.js')}}"></script>
 </body>
 </html>

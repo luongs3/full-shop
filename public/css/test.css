@@ -1,30 +1,31 @@
-.container-fluid{
-    background-color: gray;
-    height: 700px;
-}
-#quote-area{
-    background-color: white;
-    width: 500px;
-    margin-top: 100px;
-    height: auto;
-    overflow: auto;
-    padding: 20px;
+.modal-body {
     text-align: center;
 }
-.btn{
+
+#x {
+    margin-right: 20px;
+}
+
+.area {
+    width: 510px;
+    height: 510px;
+    background-color: black;
+    margin: 50px 0 0 300px;
+}
+.row{
+    height: 150px !important;
+    width: 510px;
+    margin: 0;
+}
+.square{
+    display: block;
+    border: solid 1px white;
+    width: 170px;
+    font-size: 20px;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 170px;
     color: white;
-    background-color: gray;
-}
-.btn-social{
+    height: 170px;
     float: left;
-    margin-left: 20px;
-}
-.btn-new-quote{
-    float: right;
-    margin-right: 30px;
-}
-.option-value{
-    margin-bottom: 20px;
-    width: 20px;
-    background-color: red !important;
 }
