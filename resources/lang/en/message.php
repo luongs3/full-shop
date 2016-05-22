@@ -29,5 +29,7 @@ return [
     'update_order_status_successfully' => 'Cập nhật trạng thái đơn hàng thành công',
     'choose_province_first' => 'Chọn Tỉnh/Thành phố trước',
     'submit_order_successfully' => 'Gửi đơn hàng thành công!',
+    'edit_post_successfully' => 'Edit Post Successfully',
+    'test' => 'Test',
     'test' => 'Test',
 ];

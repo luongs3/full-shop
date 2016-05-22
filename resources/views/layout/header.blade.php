@@ -21,7 +21,7 @@
                         <div class="shop-menu pull-right">
                             <ul class="nav navbar-nav">
                                 @if(Auth::check())
-                                    <li><a href="{{URL::route('users')}}"><span class="hello_user">{{trans('general.hello')}}: </span>{{Auth::user()->email}}</a></li>
+                                    <li><a href="#"><span class="hello_user">{{trans('general.hello')}}: </span>{{Auth::user()->email}}</a></li>
                                 @endif
                                 @if(Auth::check() && Auth::user()->role=="admin")
                                     <li><a href="{{URL::route('manage')}}">{{trans('label.manage')}}</a></li>

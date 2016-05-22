@@ -65,7 +65,7 @@ class BlogController extends Controller{
             unset($input['_token']);
         $input['title'] = trim(preg_replace('/[^(\x20-\x7F)]*/','', $input['title']));
         $input['subcontent'] = trim($input['subcontent']);
-        isset($input['active']) OR $input['active']=0;
+        isset($input['active']) ? $input['active'] = 1 :  $input['active']=0;
         $input['content'] = trim($input['content']);
         if(Input::hasFile('image') && empty($input['image_hidden'])) {
             if(Input::file('image')->getSize() < 500000 && Input::file('image')->isValid()){

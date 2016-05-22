@@ -113,5 +113,6 @@ return [
     'option_title' => 'Tùy Chọn: Kích Thước, Màu Sắc, ...',
     'option_value' => 'Giá Trị: S, L, XL, XXL',
     'remove_option' => 'Remove Option',
+    'edit_post' => 'Chỉnh sửa Post',
     'save' => 'Lưu',
 ];
