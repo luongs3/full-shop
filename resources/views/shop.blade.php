@@ -36,7 +36,13 @@
 									<div class="product-image-wrapper">
 										<div class="single-products">
 											<div class="productinfo text-center">
-												<a href="{{URL::route('products.detail',['sku'=>$val['sku']])}}"><img src="{{$val['image_url']}}" alt="" /></a>
+												<a href="{{URL::route('products.detail',['sku'=>$val['sku']])}}">
+													@if(isset($item['image_url']))
+														<a href=""><img src="{{url($item['image_url'])}}" alt=""></a>
+													@else
+														<img src="{{asset('images/images.jpg')}}" alt="" />
+													@endif
+												</a>
 												<div class="product-tab-price">@if(isset($val['sale_price']))
 													<div>
 														<span class="price">{{number_format($val['sale_price'])}} đ</span>

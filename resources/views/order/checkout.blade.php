@@ -76,7 +76,13 @@
 									@foreach($items as $key => $item)
 										<tr>
 											<td class="cart_product">
-												<a href=""><img src="{{url($item['image_url'])}}" alt=""></a>
+												<a href="{{URL::route('products.detail',['sku' => $item['sku']])}}">
+													@if(isset($item['image_url']))
+														<a href=""><img src="{{url($item['image_url'])}}" alt=""></a>
+													@else
+														<img src="{{asset('images/images.jpg')}}" alt="" />
+													@endif
+												</a>
 											</td>
 											<td class="cart_description">
 												<h4><a href="">{{$item['name']}}</a></h4>

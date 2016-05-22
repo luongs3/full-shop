@@ -31,10 +31,14 @@
 						@foreach($items as $key => $item)
 							<tr>
 								<td class="cart_product">
-									<a href=""><img src="{{url($item['image_url'])}}" alt=""></a>
+									@if(isset($item['image_url']))
+										<a href=""><img src="{{url($item['image_url'])}}" alt=""></a>
+									@else
+										<img src="{{asset('images/images.jpg')}}" alt="" />
+									@endif
 								</td>
 								<td class="cart_description">
-									<h4><a href="">{{$item['name']}}</a></h4>
+									<h4><a href="{{URL::route('products.detail', ['sku' => $item['sku']])}}">{{$item['name']}}</a></h4>
 									<p>{{trans('label.sku')}}: {{$item['sku']}}</p>
 									@if(!empty($item['option']))
 										@foreach($item['option'] as $option)

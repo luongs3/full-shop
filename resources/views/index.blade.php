@@ -13,13 +13,14 @@
 				<div class="col-sm-12">
 					<div id="slider-carousel" class="carousel slide" data-ride="carousel" data-interval="3000">
 						<ol class="carousel-indicators">
-							<li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
-							<li data-target="#slider-carousel" data-slide-to="1"></li>
-							<li data-target="#slider-carousel" data-slide-to="2"></li>
+								@if(isset($files[0])) <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>@endif
+								@if(isset($files[1])) <li data-target="#slider-carousel" data-slide-to="1"></li>@endif
+								@if(isset($files[2])) <li data-target="#slider-carousel" data-slide-to="2"></li>@endif
 						</ol>
 
 						<div class="carousel-inner">
-							<div class="item active">
+							@if(isset($files[0]))
+								<div class="item active">
 								<div class="col-sm-6">
 									<h1><span>E</span>-SHOPPER</h1>
 									<h2>Free E-Commerce Template</h2>
@@ -30,6 +31,9 @@
 									<img src="{{url($files[0]['url'])}}" class="girl img-responsive" alt="" />
 								</div>
 							</div>
+							@endif
+														@if(isset($files[0]))
+
 							<div class="item">
 								<div class="col-sm-6">
 									<h1><span>E</span>-SHOPPER</h1>
@@ -39,9 +43,10 @@
 								</div>
 								<div class="col-sm-6">
 									<img src="{{url($files[1]['url'])}}" class="girl img-responsive" alt="" />
-									{{--<img src="/images/home/pricing.png"  class="pricing" alt="" />--}}
 								</div>
 							</div>
+							@endif
+							@if(isset($files[0]))
 
 							<div class="item">
 								<div class="col-sm-6">
@@ -52,10 +57,10 @@
 								</div>
 								<div class="col-sm-6">
 									<img src="{{url($files[2]['url'])}}" class="girl img-responsive" alt="" />
-									{{--<img src="/images/home/pricing.png" class="pricing" alt="" />--}}
 								</div>
 							</div>
 
+							@endif
 						</div>
 
 						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
@@ -85,7 +90,11 @@
 										<div class="single-products">
 											<div class="productinfo text-center">
 												<a href="{{URL::route('products.detail',['sku' => $val['sku']])}}">
-													<img src="{{url($val['image_url'])}}" alt="" />
+													@if(isset($val['image_url']))
+														<img src="{{url($val['image_url'])}}" alt="" />
+													@else
+														<img src="{{asset('images/images.jpg')}}" alt="" />
+													@endif
 												</a>
 												@if(isset($val['sale_price']))
 													<div class="sale_line">
@@ -139,7 +148,11 @@
 															<div class="single-products">
 																<div class="productinfo text-center">
 																	<a href="{{URL::route('products.detail',['sku' => $product['sku']])}}">
-																		<img class="product-tab-img" src="{{url($product['image_url'])}}" alt="" />
+																		@if(isset($product['image_url']))
+																			<img class="product-tab-img" src="{{url($product['image_url'])}}" alt="" />
+																		@else
+																			<img src="{{asset('images/images.jpg')}}" alt="" />
+																		@endif
 																	</a>
 																	<div class="product-tab-name">{{$product['name']}}</div>
 																	<div class="product-tab-price">
@@ -188,7 +201,7 @@
 				});
 			});
 			if($('.loading').length>0){
-				$(this).css('display','block');
+				$('.loading').css('display','block');
 				$('.loading-mask').css('display','block');
 			}
 			$('#advert_remove').click(function(){
