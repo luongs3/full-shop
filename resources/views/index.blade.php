@@ -187,6 +187,10 @@
 					}
 				});
 			});
+			if($('.loading').length>0){
+				$(this).css('display','block');
+				$('.loading-mask').css('display','block');
+			}
 			$('#advert_remove').click(function(){
 				$('#ajax-loading-mask').hide();
 				$('#ajax-loading').hide();

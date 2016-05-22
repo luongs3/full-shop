@@ -115,7 +115,7 @@ h3.page-header {
     opacity: 0.60;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
     z-index: 500;
-    display: block;
+    display: none;
 }
 
 .loading {
@@ -132,7 +132,7 @@ h3.page-header {
     text-align: center;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
     z-index: 1000;
-    display: block;
+    display: none;
 }
 
 #btn_update_status, #btn_add, #btn_delete {

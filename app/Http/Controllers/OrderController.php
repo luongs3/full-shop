@@ -81,7 +81,10 @@ class OrderController extends Controller{
     public function removeItem(){
         $key = json_decode(Input::get('key'));
         $item = Session::pull('items.'.$key);
-        Session::set('sub_price',Session::get('sub_price')-$item['sub_total']);
+        $sub_price = Session::get('sub_price')-$item['sub_total'];
+        if($sub_price<0)
+            $sub_price = 0;
+        Session::set('sub_price',$sub_price);
         Session::set('total_price',Session::get('sub_price'));
         Session::flash('success',trans('message.remove_item_successfully'));
     }
@@ -89,10 +92,17 @@ class OrderController extends Controller{
     public function changeQuantity(){
         $input = Input::all();
         $item = Session::get('items.'.$input['key']);
-        Session::set('sub_price',Session::get('sub_price')+($input['quantity']-$item['quantity'])*$item['price']);
-        Session::set('total_price',Session::get('sub_price'));
+        if (isset($item['sale_price']))
+            $sub_total = Session::get('sub_price')+($input['quantity']-$item['quantity'])*$item['sale_price'];
+        else
+            $sub_total = Session::get('sub_price')+($input['quantity']-$item['quantity'])*$item['price'];
+        Session::set('sub_price',$sub_total);
+        Session::set('total_price',$sub_total);
         $item['quantity'] = $input['quantity'];
-        $item['sub_total'] = $item['quantity'] * $item['price'];
+        if (isset($item['sale_price']))
+            $item['sub_total']  = $input['quantity'] * $item['sale_price'];
+        else
+            $item['sub_total'] = $input['quantity'] * $item['price'];
         Session::set('items.'.$input['key'],$item);
     }
 //    checkout

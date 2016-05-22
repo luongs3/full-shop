@@ -83,11 +83,15 @@
 					'<label class="control-label" for="">New Banner</label>'+
 					'<input class="form-control" id="" type="hidden" name="" value="">'+
 					'<input class="form-control" id="" type="file"  name="" >'+
-					'<img class="img img-responsive image_url" id="" src="{{asset('/images/home/girl2.jpg')}}">'+
+					'<img class="img img-responsive image_url" id="" src="">'+
 					'</div>';
 			$('#btn_add').click(function(){
-				$('div.col-sm-8').prepend(formGroup);
 				var no = $('.banner').length;
+				if(no>2){
+					alert("{{trans("message.max_banners_is_3")}}");
+					return false;
+				}
+				$('#banner div.col-sm-8').prepend(formGroup);
 				var last_fromGroup = $('.banner').first();
 				last_fromGroup.find('input[type="hidden"]').attr('name','hidden_'+no);
 				last_fromGroup.find('input[type="file"]').attr('name',+no).attr('id','id_'+no);

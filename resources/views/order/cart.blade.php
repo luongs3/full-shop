@@ -118,6 +118,7 @@
 					success: function(data){
 						$('#ajax-loading-mask').hide();
 						$('#ajax-loading').hide();
+						location.reload(true)
 					}
 				})
 			})
