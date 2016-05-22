@@ -63,6 +63,8 @@ class AuthController extends Controller
      * @return User
      */
     protected function create(array $data){
+        isset($data['role']) or $data['role'] = 'user';
+        isset($data['status']) or $data['status'] = 1;
         return User::create([
             'name' => array_get($data,'name'),
             'email' => $data['email'],
