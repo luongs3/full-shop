@@ -25,7 +25,7 @@
 								<div class="form-group">
 									<label class="control-label col-sm-2" for="active">{{trans('label.active')}}</label>
 									<div class="col-sm-9">
-										@if(old('active')===0)
+										@if($post['active']==0)
 											<input class="form-control" type="checkbox" id="active" name="active">
 										@else
 											<input class="form-control" type="checkbox" id="active" name="active" checked>

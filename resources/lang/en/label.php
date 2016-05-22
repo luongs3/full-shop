@@ -18,7 +18,7 @@ return [
     'email' => 'E-mail',
     'password' => 'Mật Khẩu',
     'remember_login' => 'Ghi nhớ đăng nhập',
-    'login' => 'Dăng Nhập',
+    'login' => 'Đăng Nhập',
     'forget_password' => 'Quên mật khẩu?',
     'email_address' => 'Địa chỉ E-mail',
     'phone_number' => 'Số Điện Thoại',
