@@ -157,6 +157,8 @@ class IndexController extends Controller {
                     if (isset($data['errors']))
                         return Redirect::route('manage')->with('error', $data['errors']['message']);
                 }
+
+
                 $destination_path = public_path('images/home');
                 $name = Input::file('advertisement')->getClientOriginalName();
                 $file = Input::file('advertisement')->move($destination_path, $name);
@@ -165,7 +167,7 @@ class IndexController extends Controller {
                     return Redirect::route('manage')->with('error', trans('message.upload_file_failed'));
                 $saved_file = array(
                     'name' => $file->getFilename(),
-                    'type' => 'ADVERTISEMENT',
+                    'type' => 'advertisement',
                 );
                 $response = $fileInstance->store($saved_file);
                 $data = json_decode($response->getContent(),true);

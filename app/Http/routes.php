@@ -60,8 +60,6 @@ Route::group(array( 'prefix' => 'categories'),function(){
     Route::post("save/{id?}", array('as' => 'categories.save','middleware' => 'role','uses'=> 'CategoryController@save'));
     Route::get("delete/{id}", array('as' => 'categories.delete','middleware' => 'role', 'uses' => 'CategoryController@delete'));
     Route::post("massive-delete", array('as' => 'categories.massive-delete','middleware' => 'role', 'uses' => 'CategoryController@massiveDelete'));
-    Route::get("test-view", array('as' => 'categories.test-view','uses'=> 'CategoryController@testView'));
-    Route::get("test", array('as' => 'categories.test','uses'=> 'CategoryController@test'));
 });
 //orders
 Route::group(array( 'prefix' => 'orders'),function(){

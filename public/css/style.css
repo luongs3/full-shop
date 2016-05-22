@@ -115,7 +115,7 @@ h3.page-header {
     opacity: 0.60;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
     z-index: 500;
-    display: none;
+    display: block;
 }
 
 .loading {
@@ -125,15 +125,14 @@ h3.page-header {
     width: 200px;
     margin-left: -105px;
     padding: 15px 30px;
-    /*background: #EAFAF6;*/
-    /*border: 2px solid #FE980F;*/
-    /*color: #FE980F;*/
+    background: #EAFAF6;
+    border: 2px solid #FE980F;
+    color: #FE980F;
     font-weight: bold;
     text-align: center;
-    opacity: 0.60;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
     z-index: 1000;
-    display: none;
+    display: block;
 }
 
 #btn_update_status, #btn_add, #btn_delete {

@@ -53,7 +53,7 @@ class CategoryController extends Controller{
 //        check sku
         if(array_get($input,'_token'))
             unset($input['_token']);
-        $input['name'] = trim(preg_replace('/[^(\x20-\x7F)]*/','', $input['name']));
+        $input['name'] = trim($input['name']);
         $input['description'] = trim($input['description']);
         if($id){
             $response = $this->model->updateItem($input);
@@ -95,7 +95,7 @@ class CategoryController extends Controller{
             return Redirect::route('categories.manage')->with('error', trans('message.category_not_exist'));
         $response = $this->model->remove($id);
         $data = json_decode($response->getContent());
-        if($data->errors)
+        if(isset($data->errors))
             return Redirect::route("categories.manage", ['id' => $id])->with('error',$data['errors-']['message']);
         else
             return Redirect::route("categories.manage")->with('success',trans('message.delete_category_successfully'));
@@ -107,9 +107,9 @@ class CategoryController extends Controller{
         $input = json_decode(Input::get('ids'));
         foreach ($input as $val) {
             $response = $this->model->remove($val);
-            $data = json_decode($response->getContent());
-            if($data->errors){
-                Session::flash('error', $data['errors-']['message']);
+            $data = json_decode($response->getContent(),true);
+            if(isset($data['errors'])){
+                Session::flash('error', $data['errors']['message']);
             }
         }
         Session::flash('success',trans('message.delete_category_successfully'));

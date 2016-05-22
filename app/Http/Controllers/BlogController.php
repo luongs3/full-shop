@@ -148,8 +148,8 @@ class BlogController extends Controller{
         if(!$id)
             return Redirect::route('blog.manage')->with('error', trans('message.post_not_exist'));
         $response = $this->model->remove($id);
-        $data = json_decode($response->getContent());
-        if($data['errors'])
+        $data = json_decode($response->getContent(),true);
+        if(isset($data['errors']))
             return Redirect::route("posts.manage")->with('error',$data['errors']['message']);
         else
             return Redirect::route("posts.manage")->with('success',trans('message.delete_post_successfully'));
@@ -162,7 +162,7 @@ class BlogController extends Controller{
         foreach ($input as $val) {
             $response = $this->model->remove($val);
             $data = json_decode($response->getContent());
-            if($data['errors']){
+            if(isset($data['errors'])){
                 Session::flash('error', $data['errors']['message']);
             }
         }

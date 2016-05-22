@@ -29,7 +29,9 @@ return [
     'update_order_status_successfully' => 'Cập nhật trạng thái đơn hàng thành công',
     'choose_province_first' => 'Chọn Tỉnh/Thành phố trước',
     'submit_order_successfully' => 'Gửi đơn hàng thành công!',
-    'edit_post_successfully' => 'Edit Post Successfully',
+    'edit_post_successfully' => 'Chỉnh sửa Post thành công',
+    'upload_file_successfully' => 'Upload File thành công',
+    'delete_image_successfully' => 'Xóa ảnh thành công',
     'test' => 'Test',
     'test' => 'Test',
 ];

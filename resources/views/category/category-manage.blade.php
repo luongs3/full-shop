@@ -36,12 +36,12 @@
 					return false;
 				}
 				$.ajax({
-							type: 'post',
+							type: 'POST',
 							url: "/categories/massive-delete",
 							data: {ids: JSON.stringify(arr),
 								_token: "{{ csrf_token() }}"},
-							success: function(){
-								window.location.replace("/categories/manage");
+							success: function (result, status){
+								location.reload(true)
 							}
 						}
 				);
