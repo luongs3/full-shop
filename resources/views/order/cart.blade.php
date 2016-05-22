@@ -31,7 +31,7 @@
 						@foreach($items as $key => $item)
 							<tr>
 								<td class="cart_product">
-									<a href=""><img src="{{asset($item['image_url']) or ''}}" alt=""></a>
+									<a href=""><img src="{{url($item['image_url'])}}" alt=""></a>
 								</td>
 								<td class="cart_description">
 									<h4><a href="">{{$item['name']}}</a></h4>

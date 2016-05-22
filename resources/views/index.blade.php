@@ -3,8 +3,8 @@
 	@if(isset($ad))
 		<div id="ajax-loading-mask" class="loading-mask advert_mask"></div>
 		<div id="ajax-loading" class="loading">
-			<img id="advert_image" src="{{$ad['url'] or ''}}" alt="general.loading..." />
-			<img id="advert_remove" src="/images/home/remove.jpg" alt="{{trans('label.turn_off')}}">
+			<img id="advert_image" src="{{url($ad['url'])}}" alt="general.loading..." />
+			<img id="advert_remove" src="{{url('/images/home/remove.jpg')}}" alt="{{trans('label.turn_off')}}">
 		</div>
 	@endif
 	<section id="slider"><!--slider-->
@@ -27,7 +27,7 @@
 									<a href="{{ URL::route('/') }}" type="button" class="btn btn-default get">Get it now</a>
 								</div>
 								<div class="col-sm-6">
-									<img src="{{$files[0]['url'] or ''}}" class="girl img-responsive" alt="" />
+									<img src="{{url($files[0]['url'])}}" class="girl img-responsive" alt="" />
 								</div>
 							</div>
 							<div class="item">
@@ -38,7 +38,7 @@
 									<a href="{{ URL::route('/') }}" type="button" class="btn btn-default get">Get it now</a>
 								</div>
 								<div class="col-sm-6">
-									<img src="{{$files[1]['url'] or ''}}" class="girl img-responsive" alt="" />
+									<img src="{{url($files[1]['url'])}}" class="girl img-responsive" alt="" />
 									{{--<img src="/images/home/pricing.png"  class="pricing" alt="" />--}}
 								</div>
 							</div>
@@ -51,7 +51,7 @@
 									<a href="{{ URL::route('/') }}" type="button" class="btn btn-default get">Get it now</a>
 								</div>
 								<div class="col-sm-6">
-									<img src="{{$files[2]['url'] or ''}}" class="girl img-responsive" alt="" />
+									<img src="{{url($files[2]['url'])}}" class="girl img-responsive" alt="" />
 									{{--<img src="/images/home/pricing.png" class="pricing" alt="" />--}}
 								</div>
 							</div>
@@ -85,7 +85,7 @@
 										<div class="single-products">
 											<div class="productinfo text-center">
 												<a href="{{URL::route('products.detail',['sku' => $val['sku']])}}">
-													<img src="{{$val['image_url']}}" alt="" />
+													<img src="{{url($val['image_url'])}}" alt="" />
 												</a>
 												@if(isset($val['sale_price']))
 													<div class="sale_line">
@@ -139,7 +139,7 @@
 															<div class="single-products">
 																<div class="productinfo text-center">
 																	<a href="{{URL::route('products.detail',['sku' => $product['sku']])}}">
-																		<img class="product-tab-img" src="{{$product['image_url'] or asset('images/images.jpg')}}" alt="" />
+																		<img class="product-tab-img" src="{{url($product['image_url'])}}" alt="" />
 																	</a>
 																	<div class="product-tab-name">{{$product['name']}}</div>
 																	<div class="product-tab-price">

@@ -32,6 +32,12 @@ class OrderController extends Controller{
             $items = Session::get('items');
         $price['sub_price'] = Session::get('sub_price');
         $price['total_price'] = Session::get('total_price');
+//        echo "<pre>";
+//        print_r($items);
+//        echo "\n";
+//        echo url($items[0]['image_url']);
+//        die();
+
         return view('order.cart')->with('items',$items)->with('price',$price);
     }
 
