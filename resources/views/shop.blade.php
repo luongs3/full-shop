@@ -37,8 +37,8 @@
 										<div class="single-products">
 											<div class="productinfo text-center">
 												<a href="{{URL::route('products.detail',['sku'=>$val['sku']])}}">
-													@if(isset($item['image_url']))
-														<a href=""><img src="{{url($item['image_url'])}}" alt=""></a>
+													@if(isset($val['image_url']))
+														<a href=""><img src="{{url($val['image_url'])}}" alt=""></a>
 													@else
 														<img src="{{asset('images/images.jpg')}}" alt="" />
 													@endif

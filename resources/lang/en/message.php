@@ -32,6 +32,6 @@ return [
     'edit_post_successfully' => 'Chỉnh sửa Post thành công',
     'upload_file_successfully' => 'Upload File thành công',
     'delete_image_successfully' => 'Xóa ảnh thành công',
-    'test' => 'Test',
+    'max_banners_is_3' => 'Số banner tối đa là 3',
     'test' => 'Test',
 ];
