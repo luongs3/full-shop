@@ -29,10 +29,10 @@ class Blog extends BaseModel{
         return $this->hasOne(File::class,'id','image_id');
     }
 
-    public function index($filter=array('limit'=>10)){
+    public function index($filter=[]){
         $model_class = $this->getModelClass();
         try {
-            $posts = $model_class::where('active',1)->orderBy("updated_at", "DESC")->paginate($filter['limit']);
+            $posts = $model_class::where($filter['filter'])->orderBy("updated_at", "DESC")->paginate($filter['limit']);
             if (!$posts)
                 return Response::json(['errors' => ['message' => trans('message.post_not_exist')]]);
             foreach ($posts as $key => $val) {

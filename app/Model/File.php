@@ -53,7 +53,8 @@ class File extends BaseModel{
                     'errors' => ['message' => trans('message.'.$this->getSingularKey(). '_not_exist')]
                 ]);
             }
-            unlink(public_path($model->url));
+            if(file_exists(public_path($model->url)))
+                unlink(public_path($model->url));
             $model->delete();
             return Response::json([$this->getSingularKey() => $model]);
         } catch (Exception $e) {

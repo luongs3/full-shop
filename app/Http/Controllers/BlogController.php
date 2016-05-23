@@ -26,7 +26,8 @@ class BlogController extends Controller{
     public function index(){
         $filter = array(
             'page' => 0,
-            'limit' => 10
+            'limit' => 10,
+            'filter' => ['active' => 1]
         );
         $data = $this->model->index($filter);
         return view('blog.blog')->with('posts',$data);
@@ -63,7 +64,7 @@ class BlogController extends Controller{
         $input = Input::all();
         if(array_get($input,'_token'))
             unset($input['_token']);
-        $input['title'] = trim(preg_replace('/[^(\x20-\x7F)]*/','', $input['title']));
+        $input['title'] = trim($input['title']);
         $input['subcontent'] = trim($input['subcontent']);
         isset($input['active']) ? $input['active'] = 1 :  $input['active']=0;
         $input['content'] = trim($input['content']);
@@ -132,7 +133,8 @@ class BlogController extends Controller{
     public function manage(){
         $filter = array(
             'page' => 0,
-            'limit' => 10
+            'limit' => 10,
+            'filter' => []
         );
         $data = $this->model->index($filter);
         $scripts = [
@@ -161,7 +163,7 @@ class BlogController extends Controller{
         $input = json_decode(Input::get('ids'));
         foreach ($input as $val) {
             $response = $this->model->remove($val);
-            $data = json_decode($response->getContent());
+            $data = json_decode($response->getContent(),true);
             if(isset($data['errors'])){
                 Session::flash('error', $data['errors']['message']);
             }

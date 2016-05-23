@@ -25,5 +25,6 @@ return [
     'cancel' => 'Hủy',
     'active' => 'Hiển thị',
     'deactivate' => 'Không',
+    'forget_steve_jobs' => 'Forget Steve Jobs',
     'test' => 'Test',
 ];

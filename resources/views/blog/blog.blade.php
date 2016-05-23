@@ -23,7 +23,7 @@
 								<a href="{{URL::route('blog.post',['id' => $post['id']])}}">
 									<img src="{{$post['image_url']}}" alt="">
 								</a>
-								<p>{{$post['subcontent']}}</p>
+								<p>{!! $post['subcontent'] !!}</p>
 								<a  class="btn btn-primary" href="{{URL::route('blog.post',['id' => $post['id']])}}">{{trans('label.read_more')}}</a>
 							</div>
 						@endforeach
