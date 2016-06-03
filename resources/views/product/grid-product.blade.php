@@ -51,6 +51,5 @@
 				</tr>
 			@endforeach
 			{!! $products->render() !!}
-
 		</tbody>
 	</table>
