@@ -33,6 +33,5 @@ return [
     'upload_file_successfully' => 'Upload File thành công',
     'delete_image_successfully' => 'Xóa ảnh thành công',
     'max_banners_is_3' => 'Số banner tối đa là 3',
-    'delete_post_successfully' => 'Xóa bài viết thành công',
     'test' => 'Test',
 ];

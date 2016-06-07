@@ -27,4 +27,6 @@ return [
     'deactivate' => 'Không',
     'forget_steve_jobs' => 'Forget Steve Jobs',
     'test' => 'Test',
+    'paid' => 'Đã thanh toán',
+    'refund' => 'Hoàn tiền',
 ];

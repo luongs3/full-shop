@@ -26,4 +26,6 @@ return [
     'active' => 'Hiển thị',
     'deactivate' => 'Không',
     'test' => 'Test',
+    'paid' => 'Đã thanh toán',
+    'refund' => 'Hoàn tiền',
 ];

@@ -59,7 +59,7 @@ class CategoryController extends Controller{
             $response = $this->model->updateItem($input);
             $data = json_decode($response->getContent(),true);
             if (isset($data['errors'])) {
-                return Redirect::route('categories.edit',['id' => $id])->with('error', $data['errors-']['message']);
+                return Redirect::route('categories.edit',['id' => $id])->with('error', $data['errors']['message']);
             } else {
                 return Redirect::route('categories.edit',['id' => $id])->with('success',trans('message.edit_category_successfully'));
             }
@@ -68,7 +68,7 @@ class CategoryController extends Controller{
             $response = $this->model->store($input);
             $data = json_decode($response->getContent(),true);
             if (isset($data['errors'])) {
-                return Redirect::route('categories.create')->with('error',$data['errors-']['message'])->withInput();
+                return Redirect::route('categories.create')->with('error',$data['errors']['message'])->withInput();
             } else {
                 return Redirect::route('categories.create')->with('success',trans('message.create_category_successfully'));
             }
@@ -96,7 +96,7 @@ class CategoryController extends Controller{
         $response = $this->model->remove($id);
         $data = json_decode($response->getContent());
         if(isset($data->errors))
-            return Redirect::route("categories.manage", ['id' => $id])->with('error',$data['errors-']['message']);
+            return Redirect::route("categories.manage", ['id' => $id])->with('error',$data['errors']['message']);
         else
             return Redirect::route("categories.manage")->with('success',trans('message.delete_category_successfully'));
 
@@ -134,7 +134,7 @@ class CategoryController extends Controller{
         $response = json_decode($response->getContent());
         if (isset($response->errors)) {
             $input = json_decode(json_encode($input), FALSE);
-            return view('test')->with('error',$response->errors->message)->with('category',$input);
+            return view('test')->with('error',$response->errors>message)->with('category',$input);
         } else {
             return Redirect::route('categories.test-view')->with('success',"Tạo Loại sản phẩm thành công");
         }

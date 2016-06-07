@@ -23,9 +23,9 @@
 								<div class="item active">
 								<div class="col-sm-6">
 									<h1><span>E</span>-SHOPPER</h1>
-									<h2>Free E-Commerce Template</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<a href="{{ URL::route('/') }}" type="button" class="btn btn-default get">Get it now</a>
+									<h2>Giảm giá đến 50%</h2>
+									<p>Phiên chợ sách cuối tuần, cửa hàng sẽ giảm sốc đến 50% tất cả các sản phẩm. Khuyến mãi sẽ diễn ra vào Chủ Nhật ngày 29/05/2016</p>
+									<a href="{{ URL::route('blog.post',['id' => '8']) }}" type="button" class="btn btn-default get">Xem chi tiết</a>
 								</div>
 								<div class="col-sm-6">
 									<img src="{{url($files[0]['url'])}}" class="girl img-responsive" alt="" />
@@ -37,9 +37,9 @@
 							<div class="item">
 								<div class="col-sm-6">
 									<h1><span>E</span>-SHOPPER</h1>
-									<h2>100% Responsive Design</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<a href="{{ URL::route('/') }}" type="button" class="btn btn-default get">Get it now</a>
+									<h2>Đọc truyện Harry Potter</h2>
+									<p>Cùng đón đọc truyện Harry Potter phần 8 - Harry Potter và bảo bối tử thần. Được phát hành vào ngày 25/05/2016</p>
+									<a href="{{ URL::route('blog.post',['id' => '9']) }}" type="button" class="btn btn-default get">Xem chi tiết</a>
 								</div>
 								<div class="col-sm-6">
 									<img src="{{url($files[1]['url'])}}" class="girl img-responsive" alt="" />
@@ -51,9 +51,9 @@
 							<div class="item">
 								<div class="col-sm-6">
 									<h1><span>E</span>-SHOPPER</h1>
-									<h2>Free Ecommerce Template</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<a href="{{ URL::route('/') }}" type="button" class="btn btn-default get">Get it now</a>
+									<h2>Giảm giá 49% các đầu sách trẻ</h2>
+									<p>Chương trình đặc biệt, khuyến mãi đầu hè, giảm giá tất cả các đầu sách trẻ lên đến 49%. Khuyến mãi bắt đầu áp dụng từ ngày 30/05 đến ngày 02/06</p>
+									<a href="{{ URL::route('blog.post',['id' => '10']) }}" type="button" class="btn btn-default get">Xem chi tiết</a>
 								</div>
 								<div class="col-sm-6">
 									<img src="{{url($files[2]['url'])}}" class="girl img-responsive" alt="" />
@@ -82,7 +82,7 @@
 				@include('layout.left-sidebar')
 				<div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->
-						<h2 class="title text-center">Features Items</h2>
+						<h2 class="title text-center">Sản phẩm</h2>
 						@if(isset($featured_products))
 							@foreach($featured_products as $val)
 								<div class="col-sm-4">
