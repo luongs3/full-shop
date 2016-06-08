@@ -20,15 +20,6 @@
 									<li><a href="{{URL::route('products.category',['id' => $category['id'], 'order_by' => 'ratio', 'direction' => 'ASC'])}}">{{trans('general.sale_off_ratio_DESC')}}</a></li>
 								</ul>
 							</div>
-							{{--<div class="dropdown">--}}
-								{{--<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Hiển thị--}}
-									{{--<span class="caret"></span></button>--}}
-								{{--<ul class="dropdown-menu">--}}
-									{{--<li><a href="#">10</a></li>--}}
-									{{--<li><a href="#">20</a></li>--}}
-									{{--<li><a href="#">30</a></li>--}}
-								{{--</ul>--}}
-							{{--</div>--}}
 						</div>
 						@if(isset($products))
 							@foreach($products as $val)
@@ -62,12 +53,6 @@
 								</div>
 							@endforeach
 						@endif
-						{{--<ul class="pagination">--}}
-							{{--<li class="active"><a href="">1</a></li>--}}
-							{{--<li><a href="">2</a></li>--}}
-							{{--<li><a href="">3</a></li>--}}
-							{{--<li><a href="">&raquo;</a></li>--}}
-						{{--</ul>--}}
 					</div><!--features_items-->
 				</div>
 				{!! $products->render() !!}
